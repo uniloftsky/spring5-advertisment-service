@@ -19,6 +19,7 @@ public class User extends BaseEntity {
     private String description;
     private String website;
     private String officeLocation;
+    private String img;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
