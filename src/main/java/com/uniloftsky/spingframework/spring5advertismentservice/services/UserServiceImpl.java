@@ -2,6 +2,7 @@ package com.uniloftsky.spingframework.spring5advertismentservice.services;
 
 import com.uniloftsky.spingframework.spring5advertismentservice.model.User;
 import com.uniloftsky.spingframework.spring5advertismentservice.repositories.UserRepository;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -35,6 +36,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User save(User obj) {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String encodedPassword = passwordEncoder.encode(obj.getPassword());
+        obj.setPassword(encodedPassword);
         return userRepository.save(obj);
     }
 

@@ -12,6 +12,18 @@ import java.util.Set;
 @Entity
 public class User extends BaseEntity {
 
+    public User() {}
+
+    public User(String username, String password, String email, String name, String description, String website, String officeLocation) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.name = name;
+        this.description = description;
+        this.website = website;
+        this.officeLocation = officeLocation;
+    }
+
     private String username;
     private String password;
     private String email;

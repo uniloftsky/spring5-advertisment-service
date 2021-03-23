@@ -1,0 +1,95 @@
+<!doctype html>
+<html class="no-js" lang="zxx" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Job Board</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- <link rel="manifest" href="site.webmanifest"> -->
+    <link rel="shortcut icon" type="image/x-icon" th:href="@{/images/favicon.png}" href="img/favicon.png">
+    <!-- Place favicon.ico in the root directory -->
+
+    <th:block th:insert="~{fragments/header-links}"></th:block>
+</head>
+
+<body>
+<!--[if lte IE 9]>
+<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade
+    your browser</a> to improve your experience and security.</p>
+<![endif]-->
+
+<th:block th:insert="~{fragments/header}"></th:block>
+
+<!-- bradcam_area  -->
+<div class="bradcam_area bradcam_bg_1">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="bradcam_text">
+                    <h3>Реєстрація</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--/ bradcam_area  -->
+
+<div class="job_details_area" style="background-color: #FFFFFF">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <h3 class="mb-30">Зареєструйте акаунт</h3>
+                <form th:action="@{/register}" method="post">
+                    <div class="mt-10">
+                        <input type="text" placeholder="Логін"
+                               onfocus="this.placeholder = ''" onblur="this.placeholder = 'Логін'" required
+                               class="single-input">
+                    </div>
+                    <div class="mt-10">
+                        <input type="password" placeholder="Пароль"
+                               onfocus="this.placeholder = ''" onblur="this.placeholder = 'Пароль'" required
+                               class="single-input">
+                    </div>
+                    <div class="mt-10">
+                        <input type="text" placeholder="Назва організації"
+                               onfocus="this.placeholder = ''" onblur="this.placeholder = 'Назва організації'" required
+                               class="single-input">
+                    </div>
+                    <div class="mt-10">
+                        <input type="email" placeholder="Електронна пошта"
+                               onfocus="this.placeholder = ''" onblur="this.placeholder = 'Електронна пошта'" required
+                               class="single-input">
+                    </div>
+                    <div class="mt-10">
+                        <input type="text" placeholder="Розташування офісу"
+                               onfocus="this.placeholder = ''" onblur="this.placeholder = 'Розташування офісу'" required
+                               class="single-input">
+                    </div>
+                    <div class="mt-10">
+                        <input type="text" placeholder="Веб-сайт"
+                               onfocus="this.placeholder = ''" onblur="this.placeholder = 'Веб-сайт'" required
+                               class="single-input">
+                    </div>
+                    <div class="mt-10">
+                        <textarea class="single-textarea" placeholder="Опис компанії"
+                                  onfocus="this.placeholder = ''"
+                                  onblur="this.placeholder = 'Опис компанії'" required></textarea>
+                    </div>
+                    <div class="submit_btn" style="margin-top: 1.5em;">
+                        <button class="boxed-btn3 w-100" type="submit">Зареєструватись</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<th:block th:insert="~{fragments/footer}"></th:block>
+
+<th:block th:insert="~{fragments/footer-links}"></th:block>
+</body>
+
+</html>
