@@ -54,11 +54,15 @@
                                class="single-input">
                     </div>
                     <div class="submit_btn" style="margin-top: 1.5em;">
-                        <button class="boxed-btn3 w-100" type="submit">Увійти</button>
+                        <button style="margin-bottom: 1em;" class="boxed-btn3 w-100" type="submit">Увійти</button>
+                        <button class="boxed-btn4 w-100" type="button" onclick="window.location = '/register'">Реєстрація</button>
                     </div>
                 </form>
-                <div th:if="${param.error}">
-                    <p>жопа</p>
+                <div style="margin-top: 1em;" th:if="${param.error}" class="alert alert-danger" role="alert">
+                    Не правильний логін чи пароль!
+                </div>
+                <div style="margin-top: 1em;" th:if="${registered}" class="alert alert-success" role="alert">
+                    Реєстрація успішна!
                 </div>
             </div>
         </div>
