@@ -27,6 +27,7 @@ public class Advertisement extends BaseEntity {
     private LocalDate publicDate;
     private String salary;
     private String jobNatural;
+    private Status status;
     private String img;
 
     @ManyToOne
