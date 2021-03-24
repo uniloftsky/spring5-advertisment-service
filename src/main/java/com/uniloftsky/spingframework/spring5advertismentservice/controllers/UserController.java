@@ -1,10 +1,13 @@
 package com.uniloftsky.spingframework.spring5advertismentservice.controllers;
 
+import com.uniloftsky.spingframework.spring5advertismentservice.model.User;
 import com.uniloftsky.spingframework.spring5advertismentservice.services.UserService;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
@@ -18,11 +21,11 @@ public class UserController {
 
     @GetMapping(value = "/profile", params = "user")
     public String showProfile(@RequestParam("user") String login, Model model) {
-        if(login.equals("anonymousUser")) {
+        if (login.equals("anonymousUser")) {
             return "security/login_form";
         }
         model.addAttribute("user", userService.findByUsername(login));
-        return "companyProfile";
+        return "profile/companyProfile";
     }
 
     @GetMapping("/profile")
@@ -31,6 +34,30 @@ public class UserController {
             return "security/login_form";
         } else {
             return "redirect:/profile?user=" + authentication.getName();
+        }
+    }
+
+    @GetMapping(value = "/editProfile", params = "user")
+    public String editProfileFormInit(@RequestParam("user") String login, Model model) {
+        if (login.equals("anonymousUser")) {
+            return "security/login_form";
+        }
+        model.addAttribute("user", userService.findByUsername(login));
+        return "profile/editProfile";
+    }
+
+    @PostMapping("/editProfile")
+    public String editProfileFormProcess(@ModelAttribute("user") User user, Model model) {
+        userService.save(user);
+        return "redirect:/profile";
+    }
+
+    @GetMapping("/editProfile")
+    public String showProfilePage(Authentication authentication) {
+        if (authentication == null || authentication.getName().equals("anonymousUser")) {
+            return "security/login_form";
+        } else {
+            return "redirect:/editProfile?user=" + authentication.getName();
         }
     }
 }

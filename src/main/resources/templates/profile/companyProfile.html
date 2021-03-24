@@ -52,7 +52,7 @@
                             </div>
                             <div class="jobs_conetent">
                                 <a href="#"><h4 th:text="${user.name}">Google Inc.</h4></a>
-                                <button th:if="${user.username == #authentication.getName()}" class="boxed-btn3" style="font-size: 12px; padding: 5px 15px;">Редагувати</button>
+                                <button th:if="${user.username == #authentication.getName()}" class="boxed-btn3" style="font-size: 12px; padding: 5px 15px;" onclick="window.location = '/editProfile'">Редагувати</button>
                                 <form style="display: none;" th:action="@{/logout}" method="post" id="logout-form"></form>
                                 <button th:if="${user.username == #authentication.getName()}" class="boxed-btn2" style="font-size: 12px; padding: 6px 15px;" id="logout-button">Вийти</button>
                                 <div class="links_locat d-flex align-items-center" style="margin-top: 10px;">

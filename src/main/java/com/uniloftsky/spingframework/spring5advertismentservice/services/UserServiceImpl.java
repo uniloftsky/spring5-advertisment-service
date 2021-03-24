@@ -45,10 +45,20 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User save(User obj) {
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        String encodedPassword = passwordEncoder.encode(obj.getPassword());
-        obj.setPassword(encodedPassword);
-        return userRepository.save(obj);
+        if(obj.getId() != null) {
+            User user = findById(obj.getId());
+            user.setDescription(obj.getDescription());
+            user.setEmail(obj.getEmail());
+            user.setName(obj.getName());
+            user.setOfficeLocation(obj.getOfficeLocation());
+            user.setWebsite(obj.getWebsite());
+            return userRepository.save(user);
+        } else {
+            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+            String encodedPassword = passwordEncoder.encode(obj.getPassword());
+            obj.setPassword(encodedPassword);
+            return userRepository.save(obj);
+        }
     }
 
     @Override
