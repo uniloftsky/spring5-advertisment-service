@@ -16,11 +16,6 @@ public class IndexController {
         return "item";
     }
 
-    @GetMapping({"/profile", "profile"})
-    public String getProfilePage() {
-        return "profile";
-    }
-
     @GetMapping({"/companyProfile", "companyProfile"})
     public String getCompanyProfilePage() {
         return "companyProfile";

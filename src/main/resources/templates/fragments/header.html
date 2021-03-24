@@ -22,16 +22,16 @@
                                         <ul id="navigation">
                                             <li><a href="/index">Головна</a></li>
                                             <li><a href="/catalog">Шукати роботу</a></li>
-                                            <li><a href="/companyProfile">Профіль</a></li>
+                                            <li><a href="" th:href="@{/profile(user = ${#authentication.getName()})}">Профіль</a></li>
                                         </ul>
                                     </nav>
                                 </div>
                             </div>
                             <div class="col-xl-3 col-lg-3 d-none d-lg-block">
-                                <div class="Appointment">
+                                <div class="Appointment d-flex align-items-center">
                                     <div class="phone_num d-none d-xl-block">
                                         <a href="/login" sec:authorize="isAnonymous()">Увійти</a>
-                                        <p sec:authorize="isAuthenticated()" sec:authentication="name"></p>
+                                        <p sec:authorize="isAuthenticated()" sec:authentication="name" style="margin-bottom: 0; font-size: 1.25rem; color: white;"></p>
                                     </div>
                                     <div class="d-none d-lg-block">
                                         <a class="boxed-btn3" href="/postAd">Створити вакансію</a>
@@ -50,5 +50,7 @@
     </header>
     <!-- header-end -->
 </th:block>
+<script>
+</script>
 </body>
 </html>
