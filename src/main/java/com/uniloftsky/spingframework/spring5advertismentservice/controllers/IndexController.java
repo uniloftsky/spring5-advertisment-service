@@ -11,11 +11,6 @@ public class IndexController {
         return "index";
     }
 
-    @GetMapping({"/catalog", "catalog"})
-    public String getCatalogPage() {
-        return "catalog";
-    }
-
     @GetMapping({"/item", "item"})
     public String getItemPage() {
         return "item";
