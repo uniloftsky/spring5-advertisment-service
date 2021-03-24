@@ -2,8 +2,10 @@ package com.uniloftsky.spingframework.spring5advertismentservice.services;
 
 import com.uniloftsky.spingframework.spring5advertismentservice.model.Advertisement;
 import com.uniloftsky.spingframework.spring5advertismentservice.repositories.AdvertisementRepository;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -12,9 +14,11 @@ import java.util.Set;
 public class AdvertisementServiceImpl implements AdvertisementService {
 
     private final AdvertisementRepository advertisementRepository;
+    private final UserService userService;
 
-    public AdvertisementServiceImpl(AdvertisementRepository advertisementRepository) {
+    public AdvertisementServiceImpl(AdvertisementRepository advertisementRepository, UserService userService) {
         this.advertisementRepository = advertisementRepository;
+        this.userService = userService;
     }
 
     @Override
@@ -35,11 +39,18 @@ public class AdvertisementServiceImpl implements AdvertisementService {
 
     @Override
     public Advertisement save(Advertisement obj) {
-        return null;
+        return advertisementRepository.save(obj);
+    }
+
+    @Override
+    public Advertisement save(Advertisement obj, Authentication authentication) {
+        obj.setPublicDate(LocalDate.now());
+        obj.setUser(userService.findByUsername(authentication.getName()));
+        return advertisementRepository.save(obj);
     }
 
     @Override
     public void delete(Advertisement obj) {
-
+        advertisementRepository.delete(obj);
     }
 }

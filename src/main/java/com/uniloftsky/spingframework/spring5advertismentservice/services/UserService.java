@@ -9,6 +9,8 @@ public interface UserService extends GenericService<User, Long> {
     @Override
     Set<User> findAll();
 
+    User findByUsername(String username);
+
     @Override
     User findById(Long aLong);
 

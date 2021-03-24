@@ -1,6 +1,7 @@
 package com.uniloftsky.spingframework.spring5advertismentservice.model;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.CascadeType;
@@ -11,8 +12,13 @@ import java.util.Set;
 
 @Getter
 @Setter
+@NoArgsConstructor
 @Entity
 public class Region extends BaseEntity {
+
+    public Region(String name) {
+        this.name = name;
+    }
 
     private String name;
 

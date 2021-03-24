@@ -47,13 +47,13 @@
                                 <img th:src="@{/images/icons/1.svg}" src="img/svg_icon/1.svg" alt="">
                             </div>
                             <div class="jobs_conetent">
-                                <a href="#"><h4>Software Engineer</h4></a>
+                                <a href="#"><h4 th:text="${ad.name}">Software Engineer</h4></a>
                                 <div class="links_locat d-flex align-items-center">
                                     <div class="location">
-                                        <p><i class="fa fa-map-marker"></i> Житомирська область, м. Бердичів</p>
+                                        <p><i class="fa fa-map-marker"></i> <span th:text="${ad.city.region.name}">Житомирська</span> область, м. <span th:text="${ad.city.name}">Бердичів</span></p>
                                     </div>
                                     <div class="location">
-                                        <p><i class="fa fa-cubes"></i> Категорія</p>
+                                        <p><i class="fa fa-cubes"></i> <span th:text="${ad.category.name}">Категорія</span></p>
                                     </div>
                                 </div>
                             </div>
@@ -63,38 +63,22 @@
                 <div class="descript_wrap white-bg">
                     <div class="single_wrap">
                         <h4>Опис вакансії</h4>
-                        <p>There are many variations of passages of Lorem Ipsum available, but the majority have
+                        <p th:text="${ad.description}">There are many variations of passages of Lorem Ipsum available, but the majority have
                             suffered alteration in some form, by injected humour, or randomised words which don't look
                             even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be
                             sure there isn't anything embarrassing.</p>
-                        <p>Variations of passages of lorem Ipsum available, but the majority have suffered alteration in
-                            some form, by injected humour, or randomised words which don't look even slightly
-                            believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there
-                            isn't anything embarrassing.</p>
                     </div>
                     <div class="single_wrap">
                         <h4>Обов'язки</h4>
-                        <ul>
-                            <li>The applicants should have experience in the following areas.
-                            </li>
-                            <li>Have sound knowledge of commercial activities.</li>
-                            <li>Leadership, analytical, and problem-solving abilities.</li>
-                            <li>Should have vast knowledge in IAS/ IFRS, Company Act, Income Tax, VAT.</li>
-                        </ul>
+                        <p th:text="${ad.responsibilities}"></p>
                     </div>
                     <div class="single_wrap">
                         <h4>Кваліфікації</h4>
-                        <ul>
-                            <li>The applicants should have experience in the following areas.
-                            </li>
-                            <li>Have sound knowledge of commercial activities.</li>
-                            <li>Leadership, analytical, and problem-solving abilities.</li>
-                            <li>Should have vast knowledge in IAS/ IFRS, Company Act, Income Tax, VAT.</li>
-                        </ul>
+                        <p th:text="${ad.qualifications}"></p>
                     </div>
                     <div class="single_wrap">
                         <h4>Що ми пропонуємо</h4>
-                        <p>There are many variations of passages of Lorem Ipsum available, but the majority have
+                        <p th:text="${ad.offer}">There are many variations of passages of Lorem Ipsum available, but the majority have
                             suffered alteration in some form, by injected humour, or randomised words which don't look
                             even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be
                             sure there isn't anything embarrassing.</p>
@@ -112,10 +96,10 @@
                     </div>
                     <div class="job_content">
                         <ul>
-                            <li>Опубліковано: <span>20.12.2020</span></li>
-                            <li>З/П: <span>50k - 120k/міс</span></li>
-                            <li>Розташування: <span>Дніпропетровська область, м. Бердичів</span></li>
-                            <li>Зайнятість: <span> Повний робочий день</span></li>
+                            <li>Опубліковано: <span th:text="${ad.publicDate}">20.12.2020</span></li>
+                            <li>З/П: <span th:text="${ad.salary}">50k - 120k/міс</span></li>
+                            <li>Розташування: <span><span th:text="${ad.city.region.name}">Дніпропетровська</span> область, м. <span th:text="${ad.city.name}">Бердичів</span></span></li>
+                            <li>Зайнятість: <span th:text="${ad.jobNatural}"> Повний робочий день</span></li>
                         </ul>
                     </div>
                 </div>

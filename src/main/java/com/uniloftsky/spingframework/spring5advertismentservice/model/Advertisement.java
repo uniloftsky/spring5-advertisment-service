@@ -1,6 +1,8 @@
 package com.uniloftsky.spingframework.spring5advertismentservice.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Entity;
@@ -9,6 +11,8 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class Advertisement extends BaseEntity {
 
@@ -27,7 +31,7 @@ public class Advertisement extends BaseEntity {
     private LocalDate publicDate;
     private String salary;
     private String jobNatural;
-    private Status status;
+    private Status status = Status.CHECK;
 
     @ManyToOne
     private User user;

@@ -272,6 +272,34 @@
                                 </div>
                             </div>
                         </div>
+                        <div th:each="ad : ${ads}" class="col-lg-12 col-md-12">
+                            <div class="single_jobs white-bg d-flex justify-content-between">
+                                <div class="jobs_left d-flex align-items-center">
+                                    <div class="thumb">
+                                        <img th:src="@{/images/icons/1.svg}" src="img/svg_icon/1.svg" alt="">
+                                    </div>
+                                    <div class="jobs_conetent">
+                                        <a href="job_details.html"><h4 th:text="${ad.name}">Creative Designer</h4></a>
+                                        <div class="links_locat d-flex align-items-center">
+                                            <div class="location" style="width: 230px;">
+                                                <p> <i class="fa fa-map-marker"></i> <span th:text="${ad.city.region.name}">Житомирська</span> область,<br> м. <span th:text="${ad.city.name}">Бердичів</span></p>
+                                            </div>
+                                            <div class="location">
+                                                <p> <i class="fa fa-cubes"></i> <span th:text="${ad.category.name}">Категорія</span></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="jobs_right">
+                                    <div class="apply_now">
+                                        <a href="/item" th:href="@{/ad(id = ${ad.id})}" class="boxed-btn3">Відгукнутись</a>
+                                    </div>
+                                    <div class="date">
+                                        <p>Опубліковано: <span th:text="${ad.publicDate}">31.12.2020</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
