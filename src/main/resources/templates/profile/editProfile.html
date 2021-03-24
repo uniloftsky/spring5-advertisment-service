@@ -42,7 +42,7 @@
         <div class="row">
             <div class="col-lg-12 col-md-12">
                 <h3 class="mb-30">Редагування акаунту</h3>
-                <form th:action="@{/editProfile}" th:object="${user}" method="post">
+                <form th:action="@{/editProfile}" th:object="${user}" method="post" enctype="multipart/form-data">
                     <div class="mt-10">
                         <input type="text" placeholder="Логін" th:field="*{username}"
                                onfocus="this.placeholder = ''" onblur="this.placeholder = 'Логін'" required
@@ -73,6 +73,18 @@
                         <textarea class="single-textarea" placeholder="Опис компанії" th:field="*{description}"
                                   onfocus="this.placeholder = ''"
                                   onblur="this.placeholder = 'Опис компанії'" required></textarea>
+                    </div>
+                    <div class="mt-10">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <button type="button" id="inputGroupFileAddon03"><i class="fa fa-cloud-upload" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                            <div class="custom-file">
+                                <input type="file" name="profileImage" class="custom-file-input" id="inputGroupFile03" aria-describedby="inputGroupFileAddon03">
+                                <label class="custom-file-label" for="inputGroupFile03">Зображення профіля</label>
+                            </div>
+                        </div>
                     </div>
                     <div class="submit_btn" style="margin-top: 1.5em;">
                         <button class="boxed-btn3 w-100" type="submit">Зберегти</button>

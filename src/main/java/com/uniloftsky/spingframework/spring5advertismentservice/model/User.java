@@ -14,7 +14,7 @@ public class User extends BaseEntity {
 
     public User() {}
 
-    public User(String username, String password, String email, String name, String description, String website, String officeLocation) {
+    public User(String username, String password, String email, String name, String description, String website, String officeLocation, String img) {
         this.username = username;
         this.password = password;
         this.email = email;
@@ -22,6 +22,7 @@ public class User extends BaseEntity {
         this.description = description;
         this.website = website;
         this.officeLocation = officeLocation;
+        this.img = img;
     }
 
     @Column(unique = true)

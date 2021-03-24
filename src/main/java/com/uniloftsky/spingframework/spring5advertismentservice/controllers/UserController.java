@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @Controller
 public class UserController {
@@ -47,8 +50,8 @@ public class UserController {
     }
 
     @PostMapping("/editProfile")
-    public String editProfileFormProcess(@ModelAttribute("user") User user, Model model) {
-        userService.save(user);
+    public String editProfileFormProcess(@ModelAttribute("user") User user, @RequestParam("profileImage") MultipartFile file, Model model) throws IOException {
+        userService.save(user, file);
         return "redirect:/profile";
     }
 

@@ -4,7 +4,9 @@ import com.uniloftsky.spingframework.spring5advertismentservice.model.User;
 import com.uniloftsky.spingframework.spring5advertismentservice.repositories.UserRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -13,9 +15,11 @@ import java.util.Set;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final ImageService imageService;
 
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository, ImageService imageService) {
         this.userRepository = userRepository;
+        this.imageService = imageService;
     }
 
     @Override
@@ -45,18 +49,31 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User save(User obj) {
-        if(obj.getId() != null) {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String encodedPassword = passwordEncoder.encode(obj.getPassword());
+        obj.setPassword(encodedPassword);
+        return userRepository.save(obj);
+    }
+
+    @Override
+    public User save(User obj, MultipartFile file) throws IOException {
+        if (obj.getId() != null) {
             User user = findById(obj.getId());
             user.setDescription(obj.getDescription());
             user.setEmail(obj.getEmail());
             user.setName(obj.getName());
             user.setOfficeLocation(obj.getOfficeLocation());
             user.setWebsite(obj.getWebsite());
+            if (!file.isEmpty()) {
+                imageService.setProfileImage(obj, file);
+                user.setImg(obj.getImg());
+            }
             return userRepository.save(user);
         } else {
             BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
             String encodedPassword = passwordEncoder.encode(obj.getPassword());
             obj.setPassword(encodedPassword);
+            imageService.setProfileImage(obj, file);
             return userRepository.save(obj);
         }
     }

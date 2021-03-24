@@ -50,7 +50,7 @@ public class DataLoader implements CommandLineRunner {
 
     private List<User> loadUsers() {
         List<User> users = new ArrayList<>();
-        users.add(new User("user", "123456", "test@mail.com", "Google Inc.", "desc", "website", "location"));
+        users.add(new User("user", "123456", "test@mail.com", "Google Inc.", "desc", "website", "location", "profile_images/ca7b612d-f45b-4aa5-9c6a-863f0fe28d2b-google.png"));
         userService.save(users.get(0));
         return users;
     }
