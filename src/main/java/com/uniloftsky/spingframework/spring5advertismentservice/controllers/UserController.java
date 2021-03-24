@@ -18,6 +18,9 @@ public class UserController {
 
     @GetMapping(value = "/profile", params = "user")
     public String showProfile(@RequestParam("user") String login, Model model) {
+        if(login.equals("anonymousUser")) {
+            return "security/login_form";
+        }
         model.addAttribute("user", userService.findByUsername(login));
         return "companyProfile";
     }
