@@ -5,12 +5,14 @@ import com.uniloftsky.spingframework.spring5advertismentservice.services.UserSer
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Valid;
 import java.io.IOException;
 
 @Controller
@@ -50,7 +52,10 @@ public class UserController {
     }
 
     @PostMapping("/editProfile")
-    public String editProfileFormProcess(@ModelAttribute("user") User user, @RequestParam("profileImage") MultipartFile file, Model model) throws IOException {
+    public String editProfileFormProcess(@Valid @ModelAttribute("user") User user, BindingResult result, @RequestParam("profileImage") MultipartFile file, Model model) throws IOException {
+        if(result.hasErrors()) {
+            return "profile/editProfile";
+        }
         userService.save(user, file);
         return "redirect:/profile";
     }
