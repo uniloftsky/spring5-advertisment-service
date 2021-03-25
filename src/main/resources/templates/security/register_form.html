@@ -44,39 +44,74 @@
                 <h3 class="mb-30">Зареєструйте акаунт</h3>
                 <form th:action="@{/register}" th:object="${user}" method="post" enctype="multipart/form-data">
                     <div class="mt-10">
-                        <input type="text" placeholder="Логін" th:field="*{username}"
-                               onfocus="this.placeholder = ''" onblur="this.placeholder = 'Логін'" required
+                        <input type="text" placeholder="Логін" th:field="*{username}" th:errorclass="form-control + ' ' + is-invalid"
+                               onfocus="this.placeholder = ''" onblur="this.placeholder = 'Логін'"
                                class="single-input">
                     </div>
+                    <div th:if="${#fields.hasErrors('username')}" class="invalid-feedback" style="display: block;">
+                        <ul style="padding-left: 1em;">
+                            <li th:each="err : ${#fields.errors('username')}" th:text="${err}"></li>
+                        </ul>
+                    </div>
                     <div class="mt-10">
-                        <input type="password" placeholder="Пароль" th:field="*{password}"
+                        <input type="password" placeholder="Пароль" th:field="*{password}" th:errorclass="form-control + ' ' + is-invalid"
                                onfocus="this.placeholder = ''" onblur="this.placeholder = 'Пароль'"
                                class="single-input">
                     </div>
-                    <div class="mt-10">
-                        <input type="text" placeholder="Назва організації" th:field="*{name}"
-                               onfocus="this.placeholder = ''" onblur="this.placeholder = 'Назва організації'" required
-                               class="single-input">
+                    <div th:if="${#fields.hasErrors('password')}" class="invalid-feedback" style="display: block;">
+                        <ul style="padding-left: 1em;">
+                            <li th:each="err : ${#fields.errors('password')}" th:text="${err}"></li>
+                        </ul>
                     </div>
                     <div class="mt-10">
-                        <input type="email" placeholder="Електронна пошта" th:field="*{email}"
-                               onfocus="this.placeholder = ''" onblur="this.placeholder = 'Електронна пошта'" required
+                        <input type="text" placeholder="Назва організації" th:field="*{name}" th:errorclass="form-control + ' ' + is-invalid"
+                               onfocus="this.placeholder = ''" onblur="this.placeholder = 'Назва організації'"
                                class="single-input">
                     </div>
-                    <div class="mt-10">
-                        <input type="text" placeholder="Розташування офісу" th:field="*{officeLocation}"
-                               onfocus="this.placeholder = ''" onblur="this.placeholder = 'Розташування офісу'" required
-                               class="single-input">
+                    <div th:if="${#fields.hasErrors('name')}" class="invalid-feedback" style="display: block;">
+                        <ul style="padding-left: 1em;">
+                            <li th:each="err : ${#fields.errors('name')}" th:text="${err}"></li>
+                        </ul>
                     </div>
                     <div class="mt-10">
-                        <input type="text" placeholder="Веб-сайт" th:field="*{website}"
-                               onfocus="this.placeholder = ''" onblur="this.placeholder = 'Веб-сайт'" required
+                        <input type="email" placeholder="Електронна пошта" th:field="*{email}" th:errorclass="form-control + ' ' + is-invalid"
+                               onfocus="this.placeholder = ''" onblur="this.placeholder = 'Електронна пошта'"
                                class="single-input">
                     </div>
+                    <div th:if="${#fields.hasErrors('email')}" class="invalid-feedback" style="display: block;">
+                        <ul style="padding-left: 1em;">
+                            <li th:each="err : ${#fields.errors('email')}" th:text="${err}"></li>
+                        </ul>
+                    </div>
                     <div class="mt-10">
-                        <textarea class="single-textarea" placeholder="Опис компанії" th:field="*{description}"
+                        <input type="text" placeholder="Розташування офісу" th:field="*{officeLocation}" th:errorclass="form-control + ' ' + is-invalid"
+                               onfocus="this.placeholder = ''" onblur="this.placeholder = 'Розташування офісу'"
+                               class="single-input">
+                    </div>
+                    <div th:if="${#fields.hasErrors('officeLocation')}" class="invalid-feedback" style="display: block;">
+                        <ul style="padding-left: 1em;">
+                            <li th:each="err : ${#fields.errors('officeLocation')}" th:text="${err}"></li>
+                        </ul>
+                    </div>
+                    <div class="mt-10">
+                        <input type="text" placeholder="Веб-сайт" th:field="*{website}" th:errorclass="form-control + ' ' + is-invalid"
+                               onfocus="this.placeholder = ''" onblur="this.placeholder = 'Веб-сайт'"
+                               class="single-input">
+                    </div>
+                    <div th:if="${#fields.hasErrors('website')}" class="invalid-feedback" style="display: block;">
+                        <ul style="padding-left: 1em;">
+                            <li th:each="err : ${#fields.errors('website')}" th:text="${err}"></li>
+                        </ul>
+                    </div>
+                    <div class="mt-10">
+                        <textarea class="single-textarea" placeholder="Опис компанії" th:field="*{description}" th:errorclass="form-control + ' ' + is-invalid"
                                   onfocus="this.placeholder = ''"
-                                  onblur="this.placeholder = 'Опис компанії'" required></textarea>
+                                  onblur="this.placeholder = 'Опис компанії'"></textarea>
+                    </div>
+                    <div th:if="${#fields.hasErrors('description')}" class="invalid-feedback" style="display: block;">
+                        <ul style="padding-left: 1em;">
+                            <li th:each="err : ${#fields.errors('description')}" th:text="${err}"></li>
+                        </ul>
                     </div>
                     <div class="mt-10">
                         <div class="input-group">
@@ -89,6 +124,9 @@
                                 <label class="custom-file-label" for="inputGroupFile03">Зображення профіля</label>
                             </div>
                         </div>
+                    </div>
+                    <div th:if="${fileError}" class="invalid-feedback" style="display: block;">
+                        <p style="color: #dc3545;">Оберіть зображення профілю</p>
                     </div>
                     <div class="submit_btn" style="margin-top: 1.5em;">
                         <button class="boxed-btn3 w-100" type="submit">Зареєструватись</button>

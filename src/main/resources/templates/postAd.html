@@ -14,6 +14,16 @@
 
     <th:block th:insert="~{fragments/header-links}"></th:block>
 </head>
+<style>
+
+
+    .ui.selection.dropdown {
+        background-color: #f9f9ff;
+        width: 100%;
+    }
+
+
+</style>
 
 <body>
 <!--[if lte IE 9]>
@@ -43,68 +53,105 @@
             <div class="col-lg-16 col-md-12">
                 <h3 class="mb-30">Заповніть форму для додавання вакансії</h3>
                 <form action="#" th:action="@{/postAd}" method="post" th:object="${ad}">
-                    <div class="mt-10">
-                        <input type="text" placeholder="Заголовок оголошення" th:field="*{name}"
-                               onfocus="this.placeholder = ''" onblur="this.placeholder = 'Заголовок оголошення'" required
-                               class="single-input">
-                    </div>
-                    <div class="input-group-icon mt-10">
-                        <div class="icon"><i class="fa fa-cubes" aria-hidden="true"></i></div>
-                        <div class="form-select" id="default-select">
-                            <select th:field="*{category}">
-                                <option value="null">Категорія</option>
-                                <option value="1" th:each="category : ${categories}" th:text="${category.name}" th:value="${category.id}">Dhaka</option>
-                            </select>
+                    <label class="form-label">Заголовок: *</label>
+                    <div class="mt-0">
+                        <div class="ui input" name="name" th:errorclass="error" style="width: 100%;">
+                            <input type="text" placeholder="Заголовок оголошення" th:field="*{name}"
+                                   onfocus="this.placeholder = ''" onblur="this.placeholder = 'Заголовок оголошення'">
                         </div>
                     </div>
-                    <div class="input-group-icon mt-10">
-                        <div class="icon"><i class="fa fa-globe" aria-hidden="true"></i></div>
-                        <div class="form-select" id="default-select">
-                            <select>
-                                <option value="null">Область</option>
-                                <option value="1" th:each="region : ${regions}" th:text="${region.name}" th:value="${region.id}">Bangladesh</option>
-                            </select>
-                        </div>
+                    <div th:if="${#fields.hasErrors('name')}" class="invalid-feedback" style="display: block;">
+                        <ul>
+                            <li th:each="err : ${#fields.errors('name')}" th:text="${err}"></li>
+                        </ul>
                     </div>
-                    <div class="input-group-icon mt-10">
-                        <div class="icon"><i class="fa fa-globe" aria-hidden="true"></i></div>
-                        <div class="form-select" id="default-select">
-                            <select th:field="*{city}">
-                                <option value="null">Місто</option>
-                                <option value="1" th:each="city : ${cities}" th:text="${city.name}" th:value="${city.id}">Bangladesh</option>
-                            </select>
-                        </div>
+                    <label class="form-label">Категорія: *</label>
+                    <div class="input-group mt-0">
+                        <select class="ui dropdown" name="category.id" th:errorclass="error" th:field="*{category}">
+                            <option value="">Категорія</option>
+                            <option th:each="category : ${categories}" th:text="${category.name}"
+                                    th:value="${category.id}">Bangladesh
+                            </option>
+                        </select>
                     </div>
+                    <div th:if="${#fields.hasErrors('category')}" class="invalid-feedback" style="display: block;">
+                        <ul>
+                            <li th:each="err : ${#fields.errors('category')}" th:text="${err}"></li>
+                        </ul>
+                    </div>
+                    <label class="form-label">Область: *</label>
+                    <div class="input-group mt-0">
+                        <select id="region_select" class="ui dropdown" style="">
+                            <option value="">Область</option>
+                            <option th:each="region : ${regions}" th:text="${region.name}" th:class="${region.name}"
+                                    th:value="${region.name}">Bangladesh
+                            </option>
+                        </select>
+                    </div>
+                    <label class="form-label">Місто: *</label>
+                    <div class="input-group mt-0">
+                        <select id="city_select" class="ui corner labeled dropdown" name="city.id" th:errorclass="error"
+                                th:field="*{city}">
+                            <option value="">Місто</option>
+                            <option th:each="city : ${cities}" th:text="${city.name}"
+                                    th:class="${city.region.name}" th:value="${city.id}">Bangladesh
+                            </option>
+                        </select>
+                    </div>
+                    <div th:if="${#fields.hasErrors('city')}" class="invalid-feedback" style="display: block;">
+                        <ul>
+                            <li th:each="err : ${#fields.errors('city')}" th:text="${err}"></li>
+                        </ul>
+                    </div>
+                    <label class="form-label">Опис вакансії: *</label>
+                    <div class="mt-0">
+                        <div class="ui form">
+                            <div class="field" th:errorclass="error" name="description">
+                                <textarea style="resize: none" placeholder="Опис вакансії" th:field="*{description}"></textarea>
+                            </div>
+                        </div>
 
-                    <div class="mt-10">
-                        <textarea class="single-textarea" placeholder="Опис вакансії" th:field="*{description}"
-                                  onfocus="this.placeholder = ''"
-                                  onblur="this.placeholder = 'Опис вакансії'" required></textarea>
                     </div>
-                    <div class="mt-10">
-                        <textarea class="single-textarea" placeholder="Обов'язки робітника" th:field="*{responsibilities}"
-                                  onfocus="this.placeholder = ''"
-                                  onblur="this.placeholder = 'Обов`язки робітника'" required></textarea>
+                    <div th:if="${#fields.hasErrors('description')}" class="invalid-feedback" style="display: block;">
+                        <ul>
+                            <li th:each="err : ${#fields.errors('description')}" th:text="${err}"></li>
+                        </ul>
                     </div>
-                    <div class="mt-10">
-                        <textarea class="single-textarea" placeholder="Кваліфікації" th:field="*{qualifications}"
-                                  onfocus="this.placeholder = ''"
-                                  onblur="this.placeholder = 'Кваліфікації'" required></textarea>
+                    <label class="form-label">Обов'язки робітника:</label>
+                    <div class="mt-0">
+                        <div class="ui form">
+                            <div class="field">
+                                <textarea style="resize: none" placeholder="Обов'язки робітника" th:field="*{responsibilities}"></textarea>
+                            </div>
+                        </div>
                     </div>
-                    <div class="mt-10">
-                        <textarea class="single-textarea" placeholder="Що ви пропонуєте спеціалісту" th:field="*{offer}"
-                                  onfocus="this.placeholder = ''"
-                                  onblur="this.placeholder = 'Що ви пропонуєте спеціалісту'" required></textarea>
+                    <label class="form-label">Кваліфікації:</label>
+                    <div class="mt-0">
+                        <div class="ui form">
+                            <div class="field">
+                                <textarea style="resize: none" placeholder="Кваліфікації" th:field="*{qualifications}"></textarea>
+                            </div>
+                        </div>
                     </div>
-                    <div class="mt-10">
-                        <input type="text" placeholder="Зайнятість" th:field="*{jobNatural}"
-                               onfocus="this.placeholder = ''" onblur="this.placeholder = 'Зайнятість'" required
-                               class="single-input">
+                    <label class="form-label">Що ви пропонуєте спеціалісту:</label>
+                    <div class="mt-0">
+                        <div class="ui form">
+                            <div class="field">
+                                <textarea style="resize: none" placeholder="Що ви пропонуєте спеціалісту" th:field="*{offer}"></textarea>
+                            </div>
+                        </div>
                     </div>
-                    <div class="mt-10">
-                        <input type="text" placeholder="Розмір З/П" th:field="*{salary}"
-                               onfocus="this.placeholder = ''" onblur="this.placeholder = 'Розмір З/П'" required
-                               class="single-input">
+                    <label class="form-label">Зайнятість:</label>
+                    <div class="mt-0">
+                        <div class="ui input" style="width: 100%;">
+                            <input type="text" placeholder="Зайнятість" th:field="*{jobNatural}">
+                        </div>
+                    </div>
+                    <label class="form-label">Розмір З/П:</label>
+                    <div class="mt-0">
+                        <div class="ui input" style="width: 100%;">
+                            <input type="text" placeholder="Розмір З/П" th:field="*{salary}">
+                        </div>
                     </div>
                     <div class="submit_btn" style="margin-top: 1.5em;">
                         <button class="boxed-btn3 w-100" type="submit">Створити</button>
@@ -115,9 +162,20 @@
     </div>
 </div>
 
+
 <th:block th:insert="~{fragments/footer}"></th:block>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 <th:block th:insert="~{fragments/footer-links}"></th:block>
+<script src="js/chainedselect.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.ui.dropdown').dropdown();
+        $('#header-dropdown').dropdown({
+            action: 'select'
+        });
+    });
+</script>
 </body>
 
 </html>

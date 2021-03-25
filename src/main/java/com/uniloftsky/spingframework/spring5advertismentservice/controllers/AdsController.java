@@ -5,10 +5,13 @@ import com.uniloftsky.spingframework.spring5advertismentservice.services.Adverti
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.validation.Valid;
 
 @Controller
 public class AdsController {
@@ -26,7 +29,10 @@ public class AdsController {
     }
 
     @PostMapping("/postAd")
-    public String postAdFormProcess(@ModelAttribute("ad") Advertisement advertisement, Authentication authentication) {
+    public String postAdFormProcess(@Valid @ModelAttribute("ad") Advertisement advertisement, BindingResult result, Authentication authentication) {
+        if(result.hasErrors()) {
+            return "postAd";
+        }
         advertisementService.save(advertisement, authentication);
         return "redirect:/catalog";
     }

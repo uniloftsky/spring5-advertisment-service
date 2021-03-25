@@ -236,10 +236,6 @@ $('.popup-video').magnificPopup({
 
 // blog-dtails-page
 
-if (document.getElementById('default-select')) {
-  $('select').niceSelect();
-}
-
   //about-pro-active
 $('.details_active').owlCarousel({
   loop:true,
@@ -320,7 +316,7 @@ mailChimp();
             $("#search_input").focus();
         });
         $(document).ready(function() {
-          $('select').niceSelect();
+          $('.form_select').niceSelect();
         });
 
 

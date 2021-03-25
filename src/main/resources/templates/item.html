@@ -41,19 +41,20 @@
         <div class="row">
             <div class="col-lg-8">
                 <div class="job_details_header">
-                    <div class="single_jobs white-bg d-flex justify-content-between">
+                    <div class="single_jobs white-bg d-flex justify-content-between" style="padding-left: 20px">
                         <div class="jobs_left d-flex align-items-center">
-                            <div class="thumb">
-                                <img th:src="@{/images/icons/1.svg}" src="img/svg_icon/1.svg" alt="">
-                            </div>
+                            <img th:src="${'/resources/' + ad.user.img}" src="img/svg_icon/1.svg" alt=""
+                                 style="object-fit: contain; max-width: 100px; max-height: 100px;">
                             <div class="jobs_conetent">
                                 <a href="#"><h4 th:text="${ad.name}">Software Engineer</h4></a>
                                 <div class="links_locat d-flex align-items-center">
                                     <div class="location">
-                                        <p><i class="fa fa-map-marker"></i> <span th:text="${ad.city.region.name}">Житомирська</span> область, м. <span th:text="${ad.city.name}">Бердичів</span></p>
+                                        <p><i class="fa fa-map-marker"></i> <span th:text="${ad.city.region.name}">Житомирська</span>
+                                            область, м. <span th:text="${ad.city.name}">Бердичів</span></p>
                                     </div>
                                     <div class="location">
-                                        <p><i class="fa fa-cubes"></i> <span th:text="${ad.category.name}">Категорія</span></p>
+                                        <p><i class="fa fa-cubes"></i> <span
+                                                th:text="${ad.category.name}">Категорія</span></p>
                                     </div>
                                 </div>
                             </div>
@@ -63,22 +64,24 @@
                 <div class="descript_wrap white-bg">
                     <div class="single_wrap">
                         <h4>Опис вакансії</h4>
-                        <p th:text="${ad.description}">There are many variations of passages of Lorem Ipsum available, but the majority have
+                        <p th:text="${ad.description}">There are many variations of passages of Lorem Ipsum available,
+                            but the majority have
                             suffered alteration in some form, by injected humour, or randomised words which don't look
                             even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be
                             sure there isn't anything embarrassing.</p>
                     </div>
-                    <div class="single_wrap">
+                    <div th:if="${not ad.responsibilities.isEmpty()}" class="single_wrap">
                         <h4>Обов'язки</h4>
                         <p th:text="${ad.responsibilities}"></p>
                     </div>
-                    <div class="single_wrap">
+                    <div th:if="${not ad.qualifications.isEmpty()}" class="single_wrap">
                         <h4>Кваліфікації</h4>
                         <p th:text="${ad.qualifications}"></p>
                     </div>
-                    <div class="single_wrap">
+                    <div th:if="${not ad.offer.isEmpty()}" class="single_wrap">
                         <h4>Що ми пропонуємо</h4>
-                        <p th:text="${ad.offer}">There are many variations of passages of Lorem Ipsum available, but the majority have
+                        <p th:text="${ad.offer}">There are many variations of passages of Lorem Ipsum available, but the
+                            majority have
                             suffered alteration in some form, by injected humour, or randomised words which don't look
                             even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be
                             sure there isn't anything embarrassing.</p>
@@ -97,9 +100,12 @@
                     <div class="job_content">
                         <ul>
                             <li>Опубліковано: <span th:text="${ad.publicDate}">20.12.2020</span></li>
-                            <li>З/П: <span th:text="${ad.salary}">50k - 120k/міс</span></li>
-                            <li>Розташування: <span><span th:text="${ad.city.region.name}">Дніпропетровська</span> область, м. <span th:text="${ad.city.name}">Бердичів</span></span></li>
-                            <li>Зайнятість: <span th:text="${ad.jobNatural}"> Повний робочий день</span></li>
+                            <li th:if="${not ad.salary.isEmpty()}">З/П: <span
+                                    th:text="${ad.salary}">50k - 120k/міс</span></li>
+                            <li>Розташування: <span><span th:text="${ad.city.region.name}">Дніпропетровська</span> область, м. <span
+                                    th:text="${ad.city.name}">Бердичів</span></span></li>
+                            <li th:if="${not ad.jobNatural.isEmpty()}">Зайнятість: <span th:text="${ad.jobNatural}"> Повний робочий день</span>
+                            </li>
                         </ul>
                     </div>
                 </div>

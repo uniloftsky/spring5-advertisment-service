@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -25,15 +27,29 @@ public class User extends BaseEntity {
         this.img = img;
     }
 
+    @NotBlank(message = "{user.field.NotBlank}")
     @Column(unique = true)
     private String username;
 
+    @NotBlank(message = "{user.field.NotBlank}")
     private String password;
+
+    @NotBlank(message = "{user.field.NotBlank}")
     private String email;
+
+    @NotBlank(message = "{user.field.NotBlank}")
     private String name;
+
+    @Size(max = 1000, message = "{user.description.Size}")
+    @NotBlank(message = "{user.field.NotBlank}")
     private String description;
+
+    @NotBlank(message = "{user.field.NotBlank}")
     private String website;
+
+    @NotBlank(message = "{user.field.NotBlank}")
     private String officeLocation;
+
     private String img;
 
     @ManyToMany(fetch = FetchType.EAGER)

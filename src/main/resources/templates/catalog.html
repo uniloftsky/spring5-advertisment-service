@@ -19,7 +19,8 @@
 
 <body>
 <!--[if lte IE 9]>
-<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade
+    your browser</a> to improve your experience and security.</p>
 <![endif]-->
 
 <th:block th:insert="~{fragments/header}"></th:block>
@@ -48,30 +49,33 @@
                         <h3>Фільтр</h3>
                         <form action="#">
                             <div class="row">
-                                <div class="col-lg-12">
+                                <div class="col-lg-12 mb-2">
                                     <div class="single_field">
-                                        <select class="wide">
-                                            <option data-display="Область">Область</option>
-                                            <option value="1">Rangpur</option>
-                                            <option value="2">Dhaka </option>
+                                        <select class="ui corner labeled dropdown">
+                                            <option value="">Категорія</option>
+                                            <option th:each="category : ${categories}" th:text="${category.name}"
+                                                    th:class="${category.name}" th:value="${category.name}">Bangladesh
+                                            </option>
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-lg-12">
+                                <div class="col-lg-12 mb-2">
                                     <div class="single_field">
-                                        <select class="wide">
-                                            <option data-display="Місто">Місто</option>
-                                            <option value="1">Rangpur</option>
-                                            <option value="2">Dhaka </option>
+                                        <select id="region_select" class="ui corner labeled dropdown">
+                                            <option value="">Область</option>
+                                            <option th:each="region : ${regions}" th:text="${region.name}"
+                                                    th:class="${region.name}" th:value="${region.name}">Bangladesh
+                                            </option>
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-lg-12">
+                                <div class="col-lg-12 mb-3">
                                     <div class="single_field">
-                                        <select class="wide">
-                                            <option data-display="Категорія">Категорія</option>
-                                            <option value="1">Category 1</option>
-                                            <option value="2">Category 2 </option>
+                                        <select id="city_select" class="ui corner labeled dropdown">
+                                            <option value="">Місто</option>
+                                            <option th:each="city : ${cities}" th:text="${city.name}"
+                                                    th:class="${city.region.name}" th:value="${city.id}">Bangladesh
+                                            </option>
                                         </select>
                                     </div>
                                 </div>
@@ -82,11 +86,12 @@
                         <label for="amount">Рівень З/П:</label>
                         <div id="slider-range"></div>
                         <p>
-                            <input type="text" id="amount" readonly style="border:0; color:#7A838B; font-size: 14px; font-weight:400;">
+                            <input type="text" id="amount" readonly
+                                   style="border:0; color:#7A838B; font-size: 14px; font-weight:400;">
                         </p>
                     </div>
                     <div class="reset_btn">
-                        <button  class="boxed-btn3 w-100" type="submit">Пошук</button>
+                        <button class="boxed-btn3 w-100" type="submit">Пошук</button>
                     </div>
                 </div>
             </div>
@@ -104,26 +109,30 @@
                 <div class="job_lists m-0">
                     <div class="row">
                         <div th:each="ad : ${ads}" class="col-lg-12 col-md-12">
-                            <div class="single_jobs white-bg d-flex justify-content-between">
+                            <div class="single_jobs white-bg d-flex justify-content-between" style="padding-left: 20px;">
                                 <div class="jobs_left d-flex align-items-center">
-                                    <div class="thumb">
-                                        <img th:src="@{/images/icons/1.svg}" src="img/svg_icon/1.svg" alt="">
+                                    <div>
+                                        <img th:src="${'/resources/' + ad.user.img}" src="img/svg_icon/1.svg" alt="" style="object-fit: contain; max-width: 100px; max-height: 100px;">
                                     </div>
                                     <div class="jobs_conetent">
-                                        <a href="job_details.html"><h4 th:text="${ad.name}">Creative Designer</h4></a>
+                                        <a href="job_details.html" th:href="@{/ad(id = ${ad.id})}"><h4 th:text="${ad.name}">Creative Designer</h4></a>
                                         <div class="links_locat d-flex align-items-center">
                                             <div class="location" style="width: 230px;">
-                                                <p> <i class="fa fa-map-marker"></i> <span th:text="${ad.city.region.name}">Житомирська</span> область,<br> м. <span th:text="${ad.city.name}">Бердичів</span></p>
+                                                <p><i class="fa fa-map-marker"></i> <span
+                                                        th:text="${ad.city.region.name}">Житомирська</span> область,<br>
+                                                    м. <span th:text="${ad.city.name}">Бердичів</span></p>
                                             </div>
                                             <div class="location">
-                                                <p> <i class="fa fa-cubes"></i> <span th:text="${ad.category.name}">Категорія</span></p>
+                                                <p><i class="fa fa-cubes"></i> <span th:text="${ad.category.name}">Категорія</span>
+                                                </p>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="jobs_right">
                                     <div class="apply_now">
-                                        <a href="/item" th:href="@{/ad(id = ${ad.id})}" class="boxed-btn3">Відгукнутись</a>
+                                        <a href="/item" th:href="@{/ad(id = ${ad.id})}"
+                                           class="boxed-btn3">Відгукнутись</a>
                                     </div>
                                     <div class="date">
                                         <p>Опубліковано: <span th:text="${ad.publicDate}">31.12.2020</span></p>
@@ -158,19 +167,27 @@
 
 
 <script>
-    $( function() {
-        $( "#slider-range" ).slider({
+    $(function () {
+        $("#slider-range").slider({
             range: true,
             min: 0,
             max: 24600,
-            values: [ 750, 24600 ],
-            slide: function( event, ui ) {
-                $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] +"/ Міс" );
+            values: [750, 24600],
+            slide: function (event, ui) {
+                $("#amount").val("$" + ui.values[0] + " - $" + ui.values[1] + "/ Міс");
             }
         });
-        $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
-            " - $" + $( "#slider-range" ).slider( "values", 1 ) + "/ Міс");
-    } );
+        $("#amount").val("$" + $("#slider-range").slider("values", 0) +
+            " - $" + $("#slider-range").slider("values", 1) + "/ Міс");
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $('.ui.dropdown').dropdown();
+        $('#header-dropdown').dropdown({
+            action: 'select'
+        });
+    });
 </script>
 </body>
 
