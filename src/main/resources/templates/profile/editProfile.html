@@ -77,6 +77,17 @@
                             <li th:each="err : ${#fields.errors('email')}" th:text="${err}"></li>
                         </ul>
                     </div>
+                    <label class="form-label">Номер телефону:</label>
+                    <div class="mt-0">
+                        <div class="ui input" style="width: 100%;" th:errorclass="error" name="phone">
+                            <input type="text" placeholder="Номер телефону" th:field="*{phone}">
+                        </div>
+                    </div>
+                    <div th:if="${#fields.hasErrors('phone')}" class="invalid-feedback" style="display: block;">
+                        <ul style="padding-left: 1em;">
+                            <li th:each="err : ${#fields.errors('phone')}" th:text="${err}"></li>
+                        </ul>
+                    </div>
                     <label class="form-label">Розташування офісу:</label>
                     <div class="mt-0">
                         <div class="ui input" style="width: 100%;" th:errorclass="error" name="officeLocation">
