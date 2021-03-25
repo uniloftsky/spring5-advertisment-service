@@ -71,6 +71,19 @@ public class AdvertisementServiceImpl implements AdvertisementService {
 
     @Override
     public Advertisement save(Advertisement obj, Authentication authentication) {
+        //shit code, have to refactor
+        if(obj.getResponsibilities().isEmpty()) {
+            obj.setResponsibilities(null);
+        }
+        if(obj.getJobNatural().isEmpty()) {
+            obj.setJobNatural(null);
+        }
+        if(obj.getOffer().isEmpty()) {
+            obj.setOffer(null);
+        }
+        if(obj.getQualifications().isEmpty()) {
+            obj.setQualifications(null);
+        }
         obj.setPublicDate(LocalDate.now());
         obj.setUser(userService.findByUsername(authentication.getName()));
         return advertisementRepository.save(obj);
