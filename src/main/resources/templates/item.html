@@ -43,8 +43,10 @@
                 <div class="job_details_header">
                     <div class="single_jobs white-bg d-flex justify-content-between" style="padding-left: 20px">
                         <div class="jobs_left d-flex align-items-center">
-                            <img th:src="${'/resources/' + ad.user.img}" src="img/svg_icon/1.svg" alt=""
-                                 style="object-fit: contain; max-width: 100px; max-height: 100px;">
+                            <div class="single_candidates text-center" style="margin-right: 50px;">
+                                <img th:src="${'/resources/' + ad.user.img}" src="img/svg_icon/1.svg" alt=""
+                                     style="object-fit: contain; max-width: 100px; max-height: 100px; margin-right: 20px;">
+                            </div>
                             <div class="jobs_conetent">
                                 <a href="#"><h4 th:text="${ad.name}">Software Engineer</h4></a>
                                 <div class="links_locat d-flex align-items-center">
@@ -106,6 +108,9 @@
                                     th:text="${ad.city.name}">Бердичів</span></span></li>
                             <li th:if="${ad.jobNatural}">Зайнятість: <span th:text="${ad.jobNatural}"> Повний робочий день</span>
                             </li>
+                            <li>Компанія: <a style="text-decoration: underline" th:text="${ad.user.name}" th:href="@{/profile(user = ${ad.user.username})}"> Повний робочий день</a>
+                            </li>
+                            <li>Відгукнутись: <span th:text="${ad.user.phone}"></span></li>
                         </ul>
                     </div>
                 </div>

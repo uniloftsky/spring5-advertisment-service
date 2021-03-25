@@ -16,7 +16,7 @@ public class User extends BaseEntity {
 
     public User() {}
 
-    public User(String username, String password, String email, String name, String description, String website, String officeLocation, String img) {
+    public User(String username, String password, String email, String name, String description, String website, String officeLocation, String phone, String img) {
         this.username = username;
         this.password = password;
         this.email = email;
@@ -24,6 +24,7 @@ public class User extends BaseEntity {
         this.description = description;
         this.website = website;
         this.officeLocation = officeLocation;
+        this.phone = phone;
         this.img = img;
     }
 
@@ -39,6 +40,9 @@ public class User extends BaseEntity {
 
     @NotBlank(message = "{user.field.NotBlank}")
     private String name;
+
+    @NotBlank(message = "{user.field.NotBlank}")
+    private String phone;
 
     @Size(max = 1000, message = "{user.description.Size}")
     @NotBlank(message = "{user.field.NotBlank}")
