@@ -4,9 +4,7 @@ import com.uniloftsky.spingframework.spring5advertismentservice.model.Category;
 import com.uniloftsky.spingframework.spring5advertismentservice.repositories.CategoryRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
@@ -20,6 +18,13 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public Set<Category> findAll() {
         Set<Category> categories = new HashSet<>();
+        categoryRepository.findAll().iterator().forEachRemaining(categories::add);
+        return categories;
+    }
+
+    @Override
+    public TreeSet<Category> getSortedCategories(Comparator<Category> comparator) {
+        TreeSet<Category> categories = new TreeSet<>(comparator);
         categoryRepository.findAll().iterator().forEachRemaining(categories::add);
         return categories;
     }

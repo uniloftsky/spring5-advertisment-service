@@ -4,9 +4,7 @@ import com.uniloftsky.spingframework.spring5advertismentservice.model.City;
 import com.uniloftsky.spingframework.spring5advertismentservice.repositories.CityRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class CityServiceImpl implements CityService {
@@ -20,6 +18,13 @@ public class CityServiceImpl implements CityService {
     @Override
     public Set<City> findAll() {
         Set<City> cities = new HashSet<>();
+        cityRepository.findAll().iterator().forEachRemaining(cities::add);
+        return cities;
+    }
+
+    @Override
+    public TreeSet<City> getSortedCities(Comparator<City> comparator) {
+        TreeSet<City> cities = new TreeSet<>(comparator);
         cityRepository.findAll().iterator().forEachRemaining(cities::add);
         return cities;
     }

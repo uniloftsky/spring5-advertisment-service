@@ -4,9 +4,7 @@ import com.uniloftsky.spingframework.spring5advertismentservice.model.Region;
 import com.uniloftsky.spingframework.spring5advertismentservice.repositories.RegionRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class RegionServiceImpl implements RegionService {
@@ -20,6 +18,13 @@ public class RegionServiceImpl implements RegionService {
     @Override
     public Set<Region> findAll() {
         Set<Region> regions = new HashSet<>();
+        regionRepository.findAll().iterator().forEachRemaining(regions::add);
+        return regions;
+    }
+
+    @Override
+    public TreeSet<Region> getSortedRegions(Comparator<Region> comparator) {
+        TreeSet<Region> regions = new TreeSet<>(comparator);
         regionRepository.findAll().iterator().forEachRemaining(regions::add);
         return regions;
     }
