@@ -10,6 +10,7 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Getter
@@ -38,7 +39,7 @@ public class Advertisement extends BaseEntity {
     private String qualifications;
     private String offer;
     private LocalDate publicDate;
-    private String salary;
+    private BigDecimal salary;
     private String jobNatural;
     private Status status = Status.CHECK;
 

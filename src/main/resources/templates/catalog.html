@@ -16,6 +16,11 @@
     <th:block th:insert="~{fragments/header-links}"></th:block>
 </head>
 
+<style>
+    .range_wrap {
+        display: none;
+    }
+</style>
 
 <body>
 <!--[if lte IE 9]>
@@ -47,51 +52,65 @@
                 <div class="job_filter white-bg">
                     <div class="form_inner white-bg">
                         <h3>Фільтр</h3>
-                        <form action="#">
+                        <form action="" th:action="@{/filterAds}" method="get">
                             <div class="row">
                                 <div class="col-lg-12 mb-2">
                                     <div class="single_field">
-                                        <select class="ui corner labeled dropdown">
+                                        <select class="ui corner labeled dropdown" name="category.name">
                                             <option value="">Категорія</option>
                                             <option th:each="category : ${categories}" th:text="${category.name}"
-                                                    th:class="${category.name}" th:value="${category.name}">Bangladesh
+                                                    th:class="${category.name}" th:value="${category.name}"
+                                                    th:selected="${category.name == #request.getParameter('category.name')}">
+                                                Bangladesh
                                             </option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-lg-12 mb-2">
                                     <div class="single_field">
-                                        <select id="region_select" class="ui corner labeled dropdown">
+                                        <select id="region_select" class="ui corner labeled dropdown"
+                                                name="region.name">
                                             <option value="">Область</option>
                                             <option th:each="region : ${regions}" th:text="${region.name}"
-                                                    th:class="${region.name}" th:value="${region.name}">Bangladesh
+                                                    th:class="${region.name}" th:value="${region.name}"
+                                                    th:selected="${region.name == #request.getParameter('region.name')}">
+                                                Bangladesh
                                             </option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-lg-12 mb-3">
                                     <div class="single_field">
-                                        <select id="city_select" class="ui corner labeled dropdown">
+                                        <select id="city_select" class="ui corner labeled dropdown" name="city.name">
                                             <option value="">Місто</option>
                                             <option th:each="city : ${cities}" th:text="${city.name}"
-                                                    th:class="${city.region.name}" th:value="${city.id}">Bangladesh
+                                                    th:class="${city.region.name}" th:value="${city.id}"
+                                                    th:selected="${city.name == #request.getParameter('city.name')}">
+                                                Bangladesh
                                             </option>
                                         </select>
                                     </div>
                                 </div>
+                                <div class="col-lg-12 mb-3 d-flex align-items-center">
+                                    <label style="margin-bottom: 0; margin-right: 10px;">Шукати з вказаною З/П: </label>
+                                    <input id="checkSalary" type="checkbox" name="checkSalary"
+                                           th:checked="${#request.getParameter('checkSalary') == 'on'}">
+                                </div>
+                            </div>
+                            <div class="range_wrap" id="salary-slider">
+                                <label for="amount">Рівень З/П:</label>
+                                <div id="slider-range"></div>
+                                <p>
+                                    <input type="text" id="amount" readonly
+                                           style="border:0; color:#7A838B; font-size: 14px; font-weight:400;">
+                                    <input type="hidden" id="minPrice" name="minPrice">
+                                    <input type="hidden" id="maxPrice" name="maxPrice">
+                                </p>
+                            </div>
+                            <div class="reset_btn">
+                                <button class="boxed-btn3 w-100" type="submit">Пошук</button>
                             </div>
                         </form>
-                    </div>
-                    <div class="range_wrap">
-                        <label for="amount">Рівень З/П:</label>
-                        <div id="slider-range"></div>
-                        <p>
-                            <input type="text" id="amount" readonly
-                                   style="border:0; color:#7A838B; font-size: 14px; font-weight:400;">
-                        </p>
-                    </div>
-                    <div class="reset_btn">
-                        <button class="boxed-btn3 w-100" type="submit">Пошук</button>
                     </div>
                 </div>
             </div>
@@ -107,15 +126,21 @@
                 </div>
 
                 <div class="job_lists m-0">
+                    <div style="margin-top: 1em;" th:if="${ads.isEmpty()}" class="alert alert-danger" role="alert">
+                        Не знайдено жодної вакансії
+                    </div>
                     <div class="row">
                         <div th:each="ad : ${ads}" class="col-lg-12 col-md-12">
-                            <div class="single_jobs white-bg d-flex justify-content-between" style="padding-left: 20px;">
+                            <div class="single_jobs white-bg d-flex justify-content-between"
+                                 style="padding-left: 20px;">
                                 <div class="jobs_left d-flex align-items-center">
                                     <div>
-                                        <img th:src="${'/resources/' + ad.user.img}" src="img/svg_icon/1.svg" alt="" style="object-fit: contain; max-width: 100px; max-height: 100px;">
+                                        <img th:src="${'/resources/' + ad.user.img}" src="img/svg_icon/1.svg" alt=""
+                                             style="object-fit: contain; max-width: 100px; max-height: 100px;">
                                     </div>
                                     <div class="jobs_conetent">
-                                        <a href="job_details.html" th:href="@{/ad(id = ${ad.id})}"><h4 th:text="${ad.name}">Creative Designer</h4></a>
+                                        <a href="job_details.html" th:href="@{/ad(id = ${ad.id})}"><h4
+                                                th:text="${ad.name}">Creative Designer</h4></a>
                                         <div class="links_locat d-flex align-items-center">
                                             <div class="location" style="width: 230px;">
                                                 <p><i class="fa fa-map-marker"></i> <span
@@ -143,12 +168,40 @@
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
-                            <div class="pagination_wrap">
+                            <div class="pagination_wrap" th:if="${!ads.isEmpty()}">
                                 <ul>
-                                    <li><a href="#"> <i class="ti-angle-left"></i> </a></li>
-                                    <li><a href="#"><span>01</span></a></li>
-                                    <li><a href="#"><span>02</span></a></li>
-                                    <li><a href="#"> <i class="ti-angle-right"></i> </a></li>
+                                    <li><a th:if="${currentPage != 0}"
+                                           th:href="@{/filterAds(size=6, pageNumber=${currentPage - 1}, category.name=${#request.getParameter('category.name')}, region.name=${#request.getParameter('region.name')}, city.name=${#request.getParameter('city.name')},
+                               minPrice=${#request.getParameter('minPrice')}, maxPrice=${#request.getParameter('maxPrice')})}"><i
+                                            class="ti-angle-left"></i></a></li>
+                                    <li><a th:if="${currentPage - 2 >= 0}"
+                                           th:href="@{/filterAds(size=6, pageNumber=${currentPage - 2}, category.name=${#request.getParameter('category.name')}, region.name=${#request.getParameter('region.name')}, city.name=${#request.getParameter('city.name')},
+                               minPrice=${#request.getParameter('minPrice')}, maxPrice=${#request.getParameter('maxPrice')})}"
+                                           th:text="${(currentPage + 1) - 2}"></a>
+                                    </li>
+                                    <li><a th:if="${currentPage - 1 >= 0}"
+                                           th:href="@{/filterAds(size=6, pageNumber=${currentPage - 1}, category.name=${#request.getParameter('category.name')}, region.name=${#request.getParameter('region.name')}, city.name=${#request.getParameter('city.name')},
+                               minPrice=${#request.getParameter('minPrice')}, maxPrice=${#request.getParameter('maxPrice')})}"
+                                           th:text="${(currentPage + 1) - 1}"></a>
+                                    </li>
+                                    <li><a class="active-page" th:href="@{/filterAds(size=6, pageNumber=${currentPage}, category.name=${#request.getParameter('category.name')}, region.name=${#request.getParameter('region.name')}, city.name=${#request.getParameter('city.name')},
+                               minPrice=${#request.getParameter('minPrice')}, maxPrice=${#request.getParameter('maxPrice')})}"
+                                           th:text="${currentPage + 1}"></a>
+                                    </li>
+                                    <li><a th:if="${currentPage + 1 <= maxPage - 1}"
+                                           th:href="@{/filterAds(size=6, pageNumber=${currentPage + 1}, category.name=${#request.getParameter('category.name')}, region.name=${#request.getParameter('region.name')}, city.name=${#request.getParameter('city.name')},
+                               minPrice=${#request.getParameter('minPrice')}, maxPrice=${#request.getParameter('maxPrice')})}"
+                                           th:text="${(currentPage + 1) + 1}"></a>
+                                    </li>
+                                    <li><a th:if="${currentPage + 2 <= maxPage - 1}"
+                                           th:href="@{/filterAds(size=6, pageNumber=${currentPage + 2}, category.name=${#request.getParameter('category.name')}, region.name=${#request.getParameter('region.name')}, city.name=${#request.getParameter('city.name')},
+                               minPrice=${#request.getParameter('minPrice')}, maxPrice=${#request.getParameter('maxPrice')})}"
+                                           th:text="${(currentPage + 1) + 2}"></a>
+                                    </li>
+                                    <li><a th:if="${currentPage != maxPage - 1}"
+                                           th:href="@{/filterAds(size=6, pageNumber=${currentPage + 1}, category.name=${#request.getParameter('category.name')}, region.name=${#request.getParameter('region.name')}, city.name=${#request.getParameter('city.name')},
+                               minPrice=${#request.getParameter('minPrice')}, maxPrice=${#request.getParameter('maxPrice')})}"><i
+                                            class="ti-angle-right"></i></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -171,10 +224,13 @@
         $("#slider-range").slider({
             range: true,
             min: 0,
-            max: 24600,
-            values: [750, 24600],
+            max: 100000,
+            values: [0, 100000],
+
             slide: function (event, ui) {
                 $("#amount").val("$" + ui.values[0] + " - $" + ui.values[1] + "/ Міс");
+                $("#minPrice").val(ui.values[0]);
+                $("#maxPrice").val(ui.values[1]);
             }
         });
         $("#amount").val("$" + $("#slider-range").slider("values", 0) +
@@ -187,6 +243,16 @@
         $('#header-dropdown').dropdown({
             action: 'select'
         });
+        if(document.getElementById('checkSalary').checked === true) {
+            document.getElementById('salary-slider').style.display = 'block';
+        }
+        document.getElementById('checkSalary').onclick = function () {
+            if(document.getElementById('checkSalary').checked === true) {
+                document.getElementById('salary-slider').style.display='block';
+            } else {
+                document.getElementById('salary-slider').style.display='none';
+            }
+        }
     });
 </script>
 </body>

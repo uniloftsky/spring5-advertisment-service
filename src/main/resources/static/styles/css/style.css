@@ -3712,7 +3712,8 @@ h3 {
 }
 
 /* line 110, ../../Arafath/CL/December/235. Job board/HTML/scss/_candidates.scss */
-.pagination_wrap ul li a:hover {
+.pagination_wrap ul li a:hover,
+.pagination_wrap ul li a.active-page {
   border-color: #00D363;
   color: #00D363;
 }

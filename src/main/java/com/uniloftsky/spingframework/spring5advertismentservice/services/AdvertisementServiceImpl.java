@@ -2,8 +2,12 @@ package com.uniloftsky.spingframework.spring5advertismentservice.services;
 
 import com.uniloftsky.spingframework.spring5advertismentservice.comparators.ads.AdAscComparatorById;
 import com.uniloftsky.spingframework.spring5advertismentservice.comparators.ads.AdDescComparatorById;
+import com.uniloftsky.spingframework.spring5advertismentservice.filter.AdvertisementCriteriaRepository;
+import com.uniloftsky.spingframework.spring5advertismentservice.filter.AdvertisementPage;
+import com.uniloftsky.spingframework.spring5advertismentservice.filter.AdvertisementSearchCriteria;
 import com.uniloftsky.spingframework.spring5advertismentservice.model.Advertisement;
 import com.uniloftsky.spingframework.spring5advertismentservice.repositories.AdvertisementRepository;
+import org.springframework.data.domain.Page;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
@@ -16,12 +20,14 @@ import static java.util.stream.Collectors.toCollection;
 public class AdvertisementServiceImpl implements AdvertisementService {
 
     private final AdvertisementRepository advertisementRepository;
+    private final AdvertisementCriteriaRepository advertisementCriteriaRepository;
     private final UserService userService;
     private static final Comparator<Advertisement> ascComparatorById = new AdAscComparatorById();
     private static final Comparator<Advertisement> descComparatorById = new AdDescComparatorById();
 
-    public AdvertisementServiceImpl(AdvertisementRepository advertisementRepository, UserService userService) {
+    public AdvertisementServiceImpl(AdvertisementRepository advertisementRepository, AdvertisementCriteriaRepository advertisementCriteriaRepository, UserService userService) {
         this.advertisementRepository = advertisementRepository;
+        this.advertisementCriteriaRepository = advertisementCriteriaRepository;
         this.userService = userService;
     }
 
@@ -42,6 +48,11 @@ public class AdvertisementServiceImpl implements AdvertisementService {
         TreeSet<Advertisement> ads = new TreeSet<>(comparator);
         advertisementRepository.findAll().iterator().forEachRemaining(ads::add);
         return ads;
+    }
+
+    @Override
+    public Page<Advertisement> getFilteredAds(AdvertisementPage advertisementPage, AdvertisementSearchCriteria advertisementSearchCriteria) {
+        return advertisementCriteriaRepository.findAllWithFilters(advertisementPage, advertisementSearchCriteria);
     }
 
     @Override

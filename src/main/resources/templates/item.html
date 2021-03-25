@@ -70,15 +70,15 @@
                             even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be
                             sure there isn't anything embarrassing.</p>
                     </div>
-                    <div th:if="${not ad.responsibilities.isEmpty()}" class="single_wrap">
+                    <div th:if="${ad.responsibilities}" class="single_wrap">
                         <h4>Обов'язки</h4>
                         <p th:text="${ad.responsibilities}"></p>
                     </div>
-                    <div th:if="${not ad.qualifications.isEmpty()}" class="single_wrap">
+                    <div th:if="${ad.qualifications}" class="single_wrap">
                         <h4>Кваліфікації</h4>
                         <p th:text="${ad.qualifications}"></p>
                     </div>
-                    <div th:if="${not ad.offer.isEmpty()}" class="single_wrap">
+                    <div th:if="${ad.offer}" class="single_wrap">
                         <h4>Що ми пропонуємо</h4>
                         <p th:text="${ad.offer}">There are many variations of passages of Lorem Ipsum available, but the
                             majority have
@@ -100,11 +100,11 @@
                     <div class="job_content">
                         <ul>
                             <li>Опубліковано: <span th:text="${ad.publicDate}">20.12.2020</span></li>
-                            <li th:if="${not ad.salary.isEmpty()}">З/П: <span
+                            <li th:if="${ad.salary}">З/П: <span
                                     th:text="${ad.salary}">50k - 120k/міс</span></li>
                             <li>Розташування: <span><span th:text="${ad.city.region.name}">Дніпропетровська</span> область, м. <span
                                     th:text="${ad.city.name}">Бердичів</span></span></li>
-                            <li th:if="${not ad.jobNatural.isEmpty()}">Зайнятість: <span th:text="${ad.jobNatural}"> Повний робочий день</span>
+                            <li th:if="${ad.jobNatural}">Зайнятість: <span th:text="${ad.jobNatural}"> Повний робочий день</span>
                             </li>
                         </ul>
                     </div>
