@@ -55,8 +55,13 @@
                         <form action="" th:action="@{/filterAds}" method="get">
                             <div class="row">
                                 <div class="col-lg-12 mb-2">
+                                    <div class="ui input">
+                                        <input type="text" style="width: 196px;" placeholder="Ключове слово" name="keyword" th:value="${#request.getParameter('keyword')}">
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 mb-2">
                                     <div class="single_field">
-                                        <select class="ui corner labeled dropdown" name="category.name">
+                                        <select class="ui corner labeled dropdown"  name="category.name">
                                             <option value="">Категорія</option>
                                             <option th:each="category : ${categories}" th:text="${category.name}"
                                                     th:class="${category.name}" th:value="${category.name}"
@@ -84,7 +89,7 @@
                                         <select id="city_select" class="ui corner labeled dropdown" name="city.name">
                                             <option value="">Місто</option>
                                             <option th:each="city : ${cities}" th:text="${city.name}"
-                                                    th:class="${city.region.name}" th:value="${city.id}"
+                                                    th:class="${city.region.name}" th:value="${city.name}"
                                                     th:selected="${city.name == #request.getParameter('city.name')}">
                                                 Bangladesh
                                             </option>
@@ -171,35 +176,35 @@
                             <div class="pagination_wrap" th:if="${!ads.isEmpty()}">
                                 <ul>
                                     <li><a th:if="${currentPage != 0}"
-                                           th:href="@{/filterAds(size=6, pageNumber=${currentPage - 1}, category.name=${#request.getParameter('category.name')}, region.name=${#request.getParameter('region.name')}, city.name=${#request.getParameter('city.name')},
+                                           th:href="@{/filterAds(size=6, pageNumber=${currentPage - 1}, keyword=${#request.getParameter('keyword')}, category.name=${#request.getParameter('category.name')}, region.name=${#request.getParameter('region.name')}, city.name=${#request.getParameter('city.name')},
                                minPrice=${#request.getParameter('minPrice')}, maxPrice=${#request.getParameter('maxPrice')})}"><i
                                             class="ti-angle-left"></i></a></li>
                                     <li><a th:if="${currentPage - 2 >= 0}"
-                                           th:href="@{/filterAds(size=6, pageNumber=${currentPage - 2}, category.name=${#request.getParameter('category.name')}, region.name=${#request.getParameter('region.name')}, city.name=${#request.getParameter('city.name')},
+                                           th:href="@{/filterAds(size=6, pageNumber=${currentPage - 2}, keyword=${#request.getParameter('keyword')}, category.name=${#request.getParameter('category.name')}, region.name=${#request.getParameter('region.name')}, city.name=${#request.getParameter('city.name')},
                                minPrice=${#request.getParameter('minPrice')}, maxPrice=${#request.getParameter('maxPrice')})}"
                                            th:text="${(currentPage + 1) - 2}"></a>
                                     </li>
                                     <li><a th:if="${currentPage - 1 >= 0}"
-                                           th:href="@{/filterAds(size=6, pageNumber=${currentPage - 1}, category.name=${#request.getParameter('category.name')}, region.name=${#request.getParameter('region.name')}, city.name=${#request.getParameter('city.name')},
+                                           th:href="@{/filterAds(size=6, pageNumber=${currentPage - 1}, keyword=${#request.getParameter('keyword')}, category.name=${#request.getParameter('category.name')}, region.name=${#request.getParameter('region.name')}, city.name=${#request.getParameter('city.name')},
                                minPrice=${#request.getParameter('minPrice')}, maxPrice=${#request.getParameter('maxPrice')})}"
                                            th:text="${(currentPage + 1) - 1}"></a>
                                     </li>
-                                    <li><a class="active-page" th:href="@{/filterAds(size=6, pageNumber=${currentPage}, category.name=${#request.getParameter('category.name')}, region.name=${#request.getParameter('region.name')}, city.name=${#request.getParameter('city.name')},
+                                    <li><a class="active-page" th:href="@{/filterAds(size=6, pageNumber=${currentPage}, keyword=${#request.getParameter('keyword')}, category.name=${#request.getParameter('category.name')}, region.name=${#request.getParameter('region.name')}, city.name=${#request.getParameter('city.name')},
                                minPrice=${#request.getParameter('minPrice')}, maxPrice=${#request.getParameter('maxPrice')})}"
                                            th:text="${currentPage + 1}"></a>
                                     </li>
                                     <li><a th:if="${currentPage + 1 <= maxPage - 1}"
-                                           th:href="@{/filterAds(size=6, pageNumber=${currentPage + 1}, category.name=${#request.getParameter('category.name')}, region.name=${#request.getParameter('region.name')}, city.name=${#request.getParameter('city.name')},
+                                           th:href="@{/filterAds(size=6, pageNumber=${currentPage + 1}, keyword=${#request.getParameter('keyword')}, category.name=${#request.getParameter('category.name')}, region.name=${#request.getParameter('region.name')}, city.name=${#request.getParameter('city.name')},
                                minPrice=${#request.getParameter('minPrice')}, maxPrice=${#request.getParameter('maxPrice')})}"
                                            th:text="${(currentPage + 1) + 1}"></a>
                                     </li>
                                     <li><a th:if="${currentPage + 2 <= maxPage - 1}"
-                                           th:href="@{/filterAds(size=6, pageNumber=${currentPage + 2}, category.name=${#request.getParameter('category.name')}, region.name=${#request.getParameter('region.name')}, city.name=${#request.getParameter('city.name')},
+                                           th:href="@{/filterAds(size=6, pageNumber=${currentPage + 2}, keyword=${#request.getParameter('keyword')}, category.name=${#request.getParameter('category.name')}, region.name=${#request.getParameter('region.name')}, city.name=${#request.getParameter('city.name')},
                                minPrice=${#request.getParameter('minPrice')}, maxPrice=${#request.getParameter('maxPrice')})}"
                                            th:text="${(currentPage + 1) + 2}"></a>
                                     </li>
                                     <li><a th:if="${currentPage != maxPage - 1}"
-                                           th:href="@{/filterAds(size=6, pageNumber=${currentPage + 1}, category.name=${#request.getParameter('category.name')}, region.name=${#request.getParameter('region.name')}, city.name=${#request.getParameter('city.name')},
+                                           th:href="@{/filterAds(size=6, pageNumber=${currentPage + 1}, keyword=${#request.getParameter('keyword')}, category.name=${#request.getParameter('category.name')}, region.name=${#request.getParameter('region.name')}, city.name=${#request.getParameter('city.name')},
                                minPrice=${#request.getParameter('minPrice')}, maxPrice=${#request.getParameter('maxPrice')})}"><i
                                             class="ti-angle-right"></i></a></li>
                                 </ul>
@@ -243,14 +248,14 @@
         $('#header-dropdown').dropdown({
             action: 'select'
         });
-        if(document.getElementById('checkSalary').checked === true) {
+        if (document.getElementById('checkSalary').checked === true) {
             document.getElementById('salary-slider').style.display = 'block';
         }
         document.getElementById('checkSalary').onclick = function () {
-            if(document.getElementById('checkSalary').checked === true) {
-                document.getElementById('salary-slider').style.display='block';
+            if (document.getElementById('checkSalary').checked === true) {
+                document.getElementById('salary-slider').style.display = 'block';
             } else {
-                document.getElementById('salary-slider').style.display='none';
+                document.getElementById('salary-slider').style.display = 'none';
             }
         }
     });

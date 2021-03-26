@@ -65,6 +65,14 @@ public class AdvertisementCriteriaRepository {
                             "%" + advertisementSearchCriteria.getCity().getName() + "%")
             );
         }
+        if (Objects.nonNull(advertisementSearchCriteria.getKeyword())) {
+            predicates.add(criteriaBuilder.or(
+                    criteriaBuilder.like(criteriaBuilder.lower(advertisementRoot.get("name")), "%" + advertisementSearchCriteria.getKeyword().toLowerCase() + "%"),
+                    criteriaBuilder.like(criteriaBuilder.lower(advertisementRoot.get("description")), "%" + advertisementSearchCriteria.getKeyword().toLowerCase() + "%"),
+                    criteriaBuilder.like(criteriaBuilder.lower(advertisementRoot.get("responsibilities")), "%" + advertisementSearchCriteria.getKeyword().toLowerCase() + "%"),
+                    criteriaBuilder.like(criteriaBuilder.lower(advertisementRoot.get("qualifications")), "%" + advertisementSearchCriteria.getKeyword().toLowerCase() + "%"))
+            );
+        }
         if (Objects.nonNull(advertisementSearchCriteria.getCheckSalary())) {
             if (Objects.nonNull(advertisementSearchCriteria.getMaxPrice())) {
                 if (advertisementRoot.get("salary") != null) {

@@ -18,5 +18,6 @@ public class AdvertisementSearchCriteria {
     private BigDecimal minPrice;
     private BigDecimal maxPrice;
     private String checkSalary;
+    private String keyword;
 
 }
