@@ -6,6 +6,7 @@ import com.uniloftsky.spingframework.spring5advertismentservice.filter.Advertise
 import com.uniloftsky.spingframework.spring5advertismentservice.filter.AdvertisementPage;
 import com.uniloftsky.spingframework.spring5advertismentservice.filter.AdvertisementSearchCriteria;
 import com.uniloftsky.spingframework.spring5advertismentservice.model.Advertisement;
+import com.uniloftsky.spingframework.spring5advertismentservice.model.Status;
 import com.uniloftsky.spingframework.spring5advertismentservice.repositories.AdvertisementRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.Authentication;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toCollection;
 
@@ -36,6 +38,13 @@ public class AdvertisementServiceImpl implements AdvertisementService {
         Set<Advertisement> advertisements = new HashSet<>();
         advertisementRepository.findAll().iterator().forEachRemaining(advertisements::add);
         return advertisements;
+    }
+
+    @Override
+    public Set<Advertisement> findAllActive() {
+        Set<Advertisement> ads = new HashSet<>();
+        advertisementRepository.findAll().iterator().forEachRemaining(ads::add);
+        return ads.stream().filter(ad -> ad.getStatus().equals(Status.ACTIVE)).collect(Collectors.toSet());
     }
 
     @Override
@@ -72,16 +81,16 @@ public class AdvertisementServiceImpl implements AdvertisementService {
     @Override
     public Advertisement save(Advertisement obj, Authentication authentication) {
         //shit code, have to refactor
-        if(obj.getResponsibilities().isEmpty()) {
+        if (obj.getResponsibilities().isEmpty()) {
             obj.setResponsibilities(null);
         }
-        if(obj.getJobNatural().isEmpty()) {
+        if (obj.getJobNatural().isEmpty()) {
             obj.setJobNatural(null);
         }
-        if(obj.getOffer().isEmpty()) {
+        if (obj.getOffer().isEmpty()) {
             obj.setOffer(null);
         }
-        if(obj.getQualifications().isEmpty()) {
+        if (obj.getQualifications().isEmpty()) {
             obj.setQualifications(null);
         }
         obj.setPublicDate(LocalDate.now());

@@ -15,6 +15,8 @@ public interface AdvertisementService extends GenericService<Advertisement, Long
     @Override
     Set<Advertisement> findAll();
 
+    Set<Advertisement> findAllActive();
+
     TreeSet<Advertisement> getLastAds(Comparator<Advertisement> comparator, int count);
 
     TreeSet<Advertisement> findAllSortedById(Comparator<Advertisement> comparator);
