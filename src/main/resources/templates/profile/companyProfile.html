@@ -120,6 +120,7 @@
                                                style="line-height: 20px; height: 20px;">Заблоковано</a>
                                             <a href="#" th:if="${ad.status == T(com.uniloftsky.spingframework.spring5advertismentservice.model.Status).CHECK && #authentication.getName() == #request.getParameter('user')}" class="genric-btn warning-border"
                                                style="line-height: 20px; height: 20px;">Перевіряється</a>
+                                            <a href="" th:href="@{/deleteAd(id = ${ad.id})}" th:if="${#authentication.getName() == #request.getParameter('user')}" style="color: #e4606d"> Видалити</a>
                                         </div>
                                     </div>
                                 </div>

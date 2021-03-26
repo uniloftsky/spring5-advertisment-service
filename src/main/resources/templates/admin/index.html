@@ -79,7 +79,7 @@
                         </div>
 
                         <div>
-                            <span class="badge badge-pill badge-secondary mr-2">6</span>
+                            <span class="badge badge-pill badge-secondary mr-2">4</span>
                         </div>
                     </a>
                     <ul class="collapse submenu list-unstyled show" id="dashboard" data-parent="#accordionExample">
@@ -177,6 +177,7 @@
                                         <th>Область</th>
                                         <th class="text-center">Місто</th>
                                         <th>Користувач</th>
+                                        <th>Дії</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -195,6 +196,12 @@
                                         <td>
                                             <a th:href="@{/profile(user = ${ad.user.username})}"
                                                th:text="${ad.user.name}"></a>
+                                        </td>
+                                        <td>
+                                            <ul class="table-controls">
+                                                <li><a href="javascript:void(0);" th:href="@{/admin/userAdSubmit(id = ${ad.id})}" class="bs-tooltip" data-toggle="tooltip" data-placement="top" title="" data-original-title="Прийняти"><i class="fa fa-check  p-1 br-6 mb-1"></i></a></li>
+                                                <li><a href="javascript:void(0);" th:href="@{/admin/userAdBlock(id = ${ad.id})}" class="bs-tooltip" data-toggle="tooltip" data-placement="top" title="" data-original-title="Відхилити"><i class="fa fa-times  p-1 br-6 mb-1"></i></a></li>
+                                            </ul>
                                         </td>
                                     </tr>
                                     </tbody>

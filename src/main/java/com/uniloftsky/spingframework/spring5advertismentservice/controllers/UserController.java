@@ -1,6 +1,7 @@
 package com.uniloftsky.spingframework.spring5advertismentservice.controllers;
 
 import com.uniloftsky.spingframework.spring5advertismentservice.comparators.ads.AdAscComparatorById;
+import com.uniloftsky.spingframework.spring5advertismentservice.model.Advertisement;
 import com.uniloftsky.spingframework.spring5advertismentservice.model.User;
 import com.uniloftsky.spingframework.spring5advertismentservice.services.AdvertisementService;
 import com.uniloftsky.spingframework.spring5advertismentservice.services.UserService;
@@ -72,5 +73,15 @@ public class UserController {
         } else {
             return "redirect:/editProfile?user=" + authentication.getName();
         }
+    }
+
+    @GetMapping(value = "/deleteAd", params = "id")
+    public String deleteUserAd(@RequestParam("id") Long id, Authentication authentication) {
+        Advertisement ad = advertisementService.findById(id);
+        if(authentication == null || !authentication.getName().equals(ad.getUser().getUsername())) {
+            return "redirect:/";
+        }
+        advertisementService.delete(ad);
+        return "redirect:/profile";
     }
 }
