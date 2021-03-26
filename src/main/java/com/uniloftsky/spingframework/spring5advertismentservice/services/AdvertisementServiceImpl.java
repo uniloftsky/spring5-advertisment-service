@@ -63,14 +63,19 @@ public class AdvertisementServiceImpl implements AdvertisementService {
 
     @Override
     public TreeSet<Advertisement> getLastAds(Comparator<Advertisement> comparator, int count) {
-        return findAllSortedById(comparator).stream().limit(count).collect(toCollection(() -> new TreeSet<>(comparator)));
+        return findAllSortedBy(comparator).stream().limit(count).collect(toCollection(() -> new TreeSet<>(comparator)));
     }
 
     @Override
-    public TreeSet<Advertisement> findAllSortedById(Comparator<Advertisement> comparator) {
+    public TreeSet<Advertisement> findAllSortedBy(Comparator<Advertisement> comparator) {
         TreeSet<Advertisement> ads = new TreeSet<>(comparator);
         advertisementRepository.findAll().iterator().forEachRemaining(ads::add);
         return ads;
+    }
+
+    @Override
+    public Set<Advertisement> findAllSortedByByUser(Comparator<Advertisement> comparator, User user) {
+        return findAllSortedBy(comparator).stream().filter(ad -> ad.getUser() == user).collect(toCollection(() -> new TreeSet<>(comparator)));
     }
 
     @Override

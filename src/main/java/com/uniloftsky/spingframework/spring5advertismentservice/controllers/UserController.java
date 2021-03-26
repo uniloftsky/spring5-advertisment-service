@@ -1,6 +1,8 @@
 package com.uniloftsky.spingframework.spring5advertismentservice.controllers;
 
+import com.uniloftsky.spingframework.spring5advertismentservice.comparators.ads.AdAscComparatorById;
 import com.uniloftsky.spingframework.spring5advertismentservice.model.User;
+import com.uniloftsky.spingframework.spring5advertismentservice.services.AdvertisementService;
 import com.uniloftsky.spingframework.spring5advertismentservice.services.UserService;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -19,9 +21,11 @@ import java.io.IOException;
 public class UserController {
 
     private final UserService userService;
+    private final AdvertisementService advertisementService;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, AdvertisementService advertisementService) {
         this.userService = userService;
+        this.advertisementService = advertisementService;
     }
 
     @GetMapping(value = "/profile", params = "user")
@@ -30,6 +34,7 @@ public class UserController {
             return "security/login_form";
         }
         model.addAttribute("user", userService.findByUsername(login));
+        model.addAttribute("ads", advertisementService.findAllSortedByByUser(new AdAscComparatorById(), userService.findByUsername(login)));
         return "profile/companyProfile";
     }
 
@@ -53,7 +58,7 @@ public class UserController {
 
     @PostMapping("/editProfile")
     public String editProfileFormProcess(@Valid @ModelAttribute("user") User user, BindingResult result, @RequestParam("profileImage") MultipartFile file, Model model) throws IOException {
-        if(result.hasErrors()) {
+        if (result.hasErrors()) {
             return "profile/editProfile";
         }
         userService.save(user, file);

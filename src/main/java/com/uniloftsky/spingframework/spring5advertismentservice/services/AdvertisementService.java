@@ -26,7 +26,9 @@ public interface AdvertisementService extends GenericService<Advertisement, Long
 
     TreeSet<Advertisement> getLastAds(Comparator<Advertisement> comparator, int count);
 
-    TreeSet<Advertisement> findAllSortedById(Comparator<Advertisement> comparator);
+    TreeSet<Advertisement> findAllSortedBy(Comparator<Advertisement> comparator);
+
+    Set<Advertisement> findAllSortedByByUser(Comparator<Advertisement> comparator, User user);
 
     Page<Advertisement> getFilteredAds(AdvertisementPage advertisementPage, AdvertisementSearchCriteria advertisementSearchCriteria);
 

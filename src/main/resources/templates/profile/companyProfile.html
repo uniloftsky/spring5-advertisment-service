@@ -87,104 +87,39 @@
                         <h4>Вакансії компаії</h4>
                         <div class="job_lists">
                             <div class="row">
-                                <div class="col-lg-12 col-md-12">
-
+                                <div th:each="ad : ${ads}" class="col-lg-12 col-md-12">
                                     <div class="single_jobs white-bg d-flex justify-content-between">
                                         <div class="jobs_left d-flex align-items-center">
-                                            <div class="thumb">
-                                                <img th:src="@{/images/icons/4.svg}" src="img/svg_icon/4.svg" alt="">
-                                            </div>
+                                                <img th:src="${'/resources/' + ad.user.img}"  src="img/svg_icon/4.svg" alt="" style="object-fit: contain; max-width: 100px; max-height: 100px; margin-right: 20px;">
                                             <div class="jobs_conetent">
                                                 <div class="d-flex align-items-baseline">
-                                                    <a href="job_details.html" style="margin-right: 10px;"><h4>Visual
+                                                    <a href="job_details.html" th:href="@{/ad(id = ${ad.id})}" style="margin-right: 10px;"><h4 th:text="${ad.name}">Visual
                                                         Designer</h4></a>
                                                 </div>
                                                 <div class="links_locat d-flex align-items-center">
                                                     <div class="location">
-                                                        <p><i class="fa fa-map-marker"></i> Житомирська область, м.
-                                                            Бердичів</p>
+                                                        <p><i class="fa fa-map-marker"></i> <span th:text="${ad.city.region.name}">Житомирська</span> область, м.
+                                                            <span th:text="${ad.city.name}">Бердичів</span></p>
                                                     </div>
                                                     <div class="location">
-                                                        <p><i class="fa fa-cubes"></i> Категорія</p>
+                                                        <p><i class="fa fa-cubes"></i> <span th:text="${ad.category.name}">Cat</span></p>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="jobs_right">
                                             <div class="apply_now">
-                                                <a href="/item" class="boxed-btn3">Відгукнутись</a>
+                                                <a href="/item" th:href="@{/ad(id = ${ad.id})}" class="boxed-btn3">Відгукнутись</a>
                                             </div>
                                             <div class="date">
-                                                <p>Опубліковано: 31 Jan 2020</p>
+                                                <p>Опубліковано: <span th:text="${ad.publicDate}">31 Jan 2020</span></p>
                                             </div>
-                                            <a href="#" class="genric-btn success-border"
+                                            <a href="#" th:if="${ad.status == T(com.uniloftsky.spingframework.spring5advertismentservice.model.Status).ACTIVE && #authentication.getName() == #request.getParameter('user')}" class="genric-btn success-border"
                                                style="line-height: 20px; height: 20px;">Активно</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-12 col-md-12">
-                                    <div class="single_jobs white-bg d-flex justify-content-between">
-                                        <div class="jobs_left d-flex align-items-center">
-                                            <div class="thumb">
-                                                <img th:src="@{/images/icons/5.svg}" src="img/svg_icon/5.svg" alt="">
-                                            </div>
-                                            <div class="jobs_conetent">
-                                                <div class="d-flex align-items-baseline">
-                                                    <a href="job_details.html" style="margin-right: 10px;"><h4>Software Engineer</h4></a>
-                                                </div>
-                                                <div class="links_locat d-flex align-items-center">
-                                                    <div class="location">
-                                                        <p><i class="fa fa-map-marker"></i> Житомирська область, м.
-                                                            Бердичів</p>
-                                                    </div>
-                                                    <div class="location">
-                                                        <p><i class="fa fa-cubes"></i> Категорія</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="jobs_right">
-                                            <div class="apply_now">
-                                                <a href="/item" class="boxed-btn3">Відгукнутись</a>
-                                            </div>
-                                            <div class="date">
-                                                <p>Опубліковано: 31 Jan 2020</p>
-                                            </div>
-                                            <a href="#" class="genric-btn warning-border"
-                                               style="line-height: 20px; height: 20px;">Перевіряється</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-12 col-md-12">
-                                    <div class="single_jobs white-bg d-flex justify-content-between">
-                                        <div class="jobs_left d-flex align-items-center">
-                                            <div class="thumb">
-                                                <img th:src="@{/images/icons/1.svg}" src="img/svg_icon/1.svg" alt="">
-                                            </div>
-                                            <div class="jobs_conetent">
-                                                <div class="d-flex align-items-baseline">
-                                                    <a href="job_details.html" style="margin-right: 10px;"><h4>Creative Designer</h4></a>
-                                                </div>
-                                                <div class="links_locat d-flex align-items-center">
-                                                    <div class="location">
-                                                        <p><i class="fa fa-map-marker"></i> Житомирська область, м.
-                                                            Бердичів</p>
-                                                    </div>
-                                                    <div class="location">
-                                                        <p><i class="fa fa-cubes"></i> Категорія</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="jobs_right">
-                                            <div class="apply_now">
-                                                <a href="/item" class="boxed-btn3">Відгукнутись</a>
-                                            </div>
-                                            <div class="date">
-                                                <p>Опубліковано: 31 Jan 2020</p>
-                                            </div>
-                                            <a href="#" class="genric-btn danger-border"
+                                            <a href="#" th:if="${ad.status == T(com.uniloftsky.spingframework.spring5advertismentservice.model.Status).BLOCK && #authentication.getName() == #request.getParameter('user')}" class="genric-btn danger-border"
                                                style="line-height: 20px; height: 20px;">Заблоковано</a>
+                                            <a href="#" th:if="${ad.status == T(com.uniloftsky.spingframework.spring5advertismentservice.model.Status).CHECK && #authentication.getName() == #request.getParameter('user')}" class="genric-btn warning-border"
+                                               style="line-height: 20px; height: 20px;">Перевіряється</a>
                                         </div>
                                     </div>
                                 </div>
