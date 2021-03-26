@@ -50,4 +50,9 @@ public class IndexController {
         return categoryService.getCategoriesCount();
     }
 
+    @GetMapping("/forbidden")
+    public String getForbiddenPage() {
+        return "error/403error";
+    }
+
 }

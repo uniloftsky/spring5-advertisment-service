@@ -52,6 +52,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/h2-console/**").permitAll()
+                .antMatchers("/resources/**").permitAll()
+                .antMatchers("/admin/**").hasAnyAuthority("ADMIN")
                 .antMatchers("/postAd").authenticated()
                 .anyRequest().permitAll()
                 .and()
@@ -60,7 +62,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .defaultSuccessUrl("/profile")
                 .permitAll()
                 .and()
-                .logout().logoutSuccessUrl("/login").permitAll();
+                .logout().logoutSuccessUrl("/login").permitAll()
+                .and()
+                .exceptionHandling().accessDeniedPage("/forbidden");
         http.csrf().disable();
         http.headers().frameOptions().disable();
     }
