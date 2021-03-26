@@ -1,10 +1,7 @@
 package com.uniloftsky.spingframework.spring5advertismentservice.bootstrap;
 
 import com.uniloftsky.spingframework.spring5advertismentservice.model.*;
-import com.uniloftsky.spingframework.spring5advertismentservice.repositories.AdvertisementRepository;
-import com.uniloftsky.spingframework.spring5advertismentservice.repositories.CategoryRepository;
-import com.uniloftsky.spingframework.spring5advertismentservice.repositories.CityRepository;
-import com.uniloftsky.spingframework.spring5advertismentservice.repositories.RegionRepository;
+import com.uniloftsky.spingframework.spring5advertismentservice.repositories.*;
 import com.uniloftsky.spingframework.spring5advertismentservice.services.RegionService;
 import com.uniloftsky.spingframework.spring5advertismentservice.services.UserService;
 import org.springframework.boot.CommandLineRunner;
@@ -24,14 +21,16 @@ public class DataLoader implements CommandLineRunner {
     private final RegionService regionService;
     private final CityRepository cityRepository;
     private final AdvertisementRepository advertisementRepository;
+    private final RoleRepository roleRepository;
 
-    public DataLoader(UserService userService, CategoryRepository categoryRepository, RegionRepository regionRepository, RegionService regionService, CityRepository cityRepository, AdvertisementRepository advertisementRepository) {
+    public DataLoader(UserService userService, CategoryRepository categoryRepository, RegionRepository regionRepository, RegionService regionService, CityRepository cityRepository, AdvertisementRepository advertisementRepository, RoleRepository roleRepository) {
         this.userService = userService;
         this.categoryRepository = categoryRepository;
         this.regionRepository = regionRepository;
         this.regionService = regionService;
         this.cityRepository = cityRepository;
         this.advertisementRepository = advertisementRepository;
+        this.roleRepository = roleRepository;
     }
 
     @Override
@@ -66,8 +65,20 @@ public class DataLoader implements CommandLineRunner {
 
     private List<User> loadUsers() {
         List<User> users = new ArrayList<>();
-        users.add(new User("user", "123456", "test@mail.com", "Google Inc.", "desc", "website", "location", "380977777777", "profile_images/ca7b612d-f45b-4aa5-9c6a-863f0fe28d2b-google.png"));
-        userService.save(users.get(0));
+        List<Role> roles = new ArrayList<>();
+        roles.add(new Role("USER"));
+        roles.add(new Role("ADMIN"));
+        roleRepository.saveAll(roles);
+        User user = new User("user", "123456", "test@mail.com", "Google Inc.", "desc", "website", "location", "380977777777", "profile_images/ca7b612d-f45b-4aa5-9c6a-863f0fe28d2b-google.png");
+        user.getRoles().add(roles.get(0));
+        user.getRoles().add(roles.get(1));
+        userService.save(user);
+        users.add(user);
+        User user1 = new User("user1", "123456", "test@mail.com", "Google Inc.", "desc", "website", "location", "380977777777", "profile_images/ca7b612d-f45b-4aa5-9c6a-863f0fe28d2b-google.png");
+        user1.getRoles().add(roles.get(0));
+        userService.save(user1);
+        users.add(user1);
+
         return users;
     }
 

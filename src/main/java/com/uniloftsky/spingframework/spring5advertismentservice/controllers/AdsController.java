@@ -45,7 +45,7 @@ public class AdsController {
 
     @GetMapping({"/catalog", "catalog"})
     public String getCatalogPage(Model model) {
-        return "redirect:/filterAds?category.name=&region.name=&city.name=&minPrice=&maxPrice=";
+        return "redirect:/filterAds";
     }
 
     @GetMapping("/filterAds")
