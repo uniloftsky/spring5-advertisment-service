@@ -6,6 +6,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -14,6 +17,13 @@ import javax.persistence.Entity;
 @Entity
 public class Category extends BaseEntity {
 
+    public Category(String name) {
+        this.name = name;
+    }
+
     private String name;
+
+    @OneToMany(mappedBy = "category")
+    private Set<Advertisement> ads = new HashSet<>();
 
 }
