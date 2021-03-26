@@ -218,6 +218,11 @@
                                                                 <td th:text="${ad.category.name}">10/08/2018</td>
                                                                 <td th:text="${ad.city.region.name}">10/08/2018</td>
                                                                 <td th:text="${ad.city.name}">10/08/2018</td>
+                                                                <td>
+                                                                    <ul class="table-controls">
+                                                                        <li><a href="javascript:void(0);" th:href="@{/admin/userAdDelete(id = ${ad.id})}" class="bs-tooltip" data-toggle="tooltip" data-placement="top" title="" data-original-title="Видалити"><i class="fa fa-trash  p-1 br-6 mb-1"></i></a></li>
+                                                                    </ul>
+                                                                </td>
                                                             </tr>
                                                             </tbody>
                                                         </table>
@@ -258,6 +263,12 @@
                                                                 <td th:text="${ad.category.name}">10/08/2018</td>
                                                                 <td th:text="${ad.city.region.name}">10/08/2018</td>
                                                                 <td th:text="${ad.city.name}">10/08/2018</td>
+                                                                <td>
+                                                                    <ul class="table-controls">
+                                                                        <li><a href="javascript:void(0);" th:href="@{/admin/userAdSubmit(id = ${ad.id})}" class="bs-tooltip" data-toggle="tooltip" data-placement="top" title="" data-original-title="Прийняти"><i class="fa fa-check  p-1 br-6 mb-1"></i></a></li>
+                                                                        <li><a href="javascript:void(0);" th:href="@{/admin/userAdBlock(id = ${ad.id})}" class="bs-tooltip" data-toggle="tooltip" data-placement="top" title="" data-original-title="Відхилити"><i class="fa fa-times  p-1 br-6 mb-1"></i></a></li>
+                                                                    </ul>
+                                                                </td>
                                                             </tr>
                                                             </tbody>
                                                         </table>
@@ -298,6 +309,11 @@
                                                                 <td th:text="${ad.category.name}">10/08/2018</td>
                                                                 <td th:text="${ad.city.region.name}">10/08/2018</td>
                                                                 <td th:text="${ad.city.name}">10/08/2018</td>
+                                                                <td>
+                                                                    <ul class="table-controls">
+                                                                        <li><a href="javascript:void(0);" th:href="@{/admin/userAdDelete(id = ${ad.id})}" class="bs-tooltip" data-toggle="tooltip" data-placement="top" title="" data-original-title="Видалити"><i class="fa fa-trash  p-1 br-6 mb-1"></i></a></li>
+                                                                    </ul>
+                                                                </td>
                                                             </tr>
                                                             </tbody>
                                                         </table>
@@ -320,10 +336,10 @@
 <!-- END MAIN CONTAINER -->
 
 <!-- BEGIN GLOBAL MANDATORY SCRIPTS -->
-<script src="admin/admin-js/js/libs/jquery-3.1.1.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
+<script src="/admin/admin-js/js/libs/jquery-3.1.1.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
 <script th:src="@{/js/popper.min.js}"></script>
-<script src="admin/admin-js/js/app.js"></script>
+<script src="/admin/admin-js/js/app.js"></script>
 <script>
     $(document).ready(function () {
         App.init();

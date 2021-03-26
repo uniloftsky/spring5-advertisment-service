@@ -32,6 +32,10 @@ public interface AdvertisementService extends GenericService<Advertisement, Long
 
     Set<Advertisement> getStatusAdsByUser(Status status, User user, Comparator<Advertisement> comparator);
 
+    Advertisement submit(Advertisement advertisement);
+
+    Advertisement block(Advertisement advertisement);
+
     @Override
     Advertisement findById(Long aLong);
 

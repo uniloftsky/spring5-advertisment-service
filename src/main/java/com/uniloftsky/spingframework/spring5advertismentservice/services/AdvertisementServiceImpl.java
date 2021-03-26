@@ -86,6 +86,18 @@ public class AdvertisementServiceImpl implements AdvertisementService {
     }
 
     @Override
+    public Advertisement submit(Advertisement advertisement) {
+        advertisement.setStatus(Status.ACTIVE);
+        return advertisementRepository.save(advertisement);
+    }
+
+    @Override
+    public Advertisement block(Advertisement advertisement) {
+        advertisement.setStatus(Status.BLOCK);
+        return advertisementRepository.save(advertisement);
+    }
+
+    @Override
     public Advertisement findById(Long aLong) {
         Optional<Advertisement> advertisementOptional = advertisementRepository.findById(aLong);
         if (advertisementOptional.isEmpty()) {

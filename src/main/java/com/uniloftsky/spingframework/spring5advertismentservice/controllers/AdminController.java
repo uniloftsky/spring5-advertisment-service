@@ -105,7 +105,7 @@ public class AdminController {
         return "admin/user";
     }
 
-    @GetMapping(value = "/userDetails", params = "id")
+    @GetMapping(value = "/admin/userDetails", params = "id")
     public String getUserPage(@RequestParam("id") Long id, Model model) {
         model.addAttribute("user", userService.findById(id));
         model.addAttribute("activeAds", advertisementService.getStatusAdsByUser(Status.ACTIVE, userService.findById(id), comparator));
@@ -114,9 +114,30 @@ public class AdminController {
         return "admin/userDetails";
     }
 
-    @GetMapping(value = "/userDelete", params = "id")
+    @GetMapping(value = "/admin/userDelete", params = "id")
     public String deleteUser(@RequestParam("id") Long id) {
         userService.delete(userService.findById(id));
         return "redirect:/admin/user";
+    }
+
+    @GetMapping(value = "/admin/userAdDelete", params = "id")
+    public String deleteAd(@RequestParam("id") Long id) {
+        Long userId = advertisementService.findById(id).getUser().getId();
+        advertisementService.delete(advertisementService.findById(id));
+        return "redirect:/admin/userDetails?id=" + userId;
+    }
+
+    @GetMapping("/admin/userAdSubmit")
+    public String submitAd(@RequestParam("id") Long id) {
+        Long userId = advertisementService.findById(id).getUser().getId();
+        advertisementService.submit(advertisementService.findById(id));
+        return "redirect:/admin/userDetails?id=" + userId;
+    }
+
+    @GetMapping("/admin/userAdBlock")
+    public String blockAd(@RequestParam("id") Long id) {
+        Long userId = advertisementService.findById(id).getUser().getId();
+        advertisementService.block(advertisementService.findById(id));
+        return "redirect:/admin/userDetails?id=" + userId;
     }
 }
