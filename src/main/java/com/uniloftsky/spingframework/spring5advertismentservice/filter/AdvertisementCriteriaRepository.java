@@ -1,6 +1,7 @@
 package com.uniloftsky.spingframework.spring5advertismentservice.filter;
 
 import com.uniloftsky.spingframework.spring5advertismentservice.model.Advertisement;
+import com.uniloftsky.spingframework.spring5advertismentservice.model.Status;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Repository;
 
@@ -89,6 +90,7 @@ public class AdvertisementCriteriaRepository {
                 }
             }
         }
+        predicates.add(criteriaBuilder.equal(advertisementRoot.get("status"), Status.ACTIVE));
         return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
     }
 

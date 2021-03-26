@@ -9,6 +9,7 @@ import com.uniloftsky.spingframework.spring5advertismentservice.model.Advertisem
 import com.uniloftsky.spingframework.spring5advertismentservice.model.Status;
 import com.uniloftsky.spingframework.spring5advertismentservice.repositories.AdvertisementRepository;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
@@ -45,6 +46,18 @@ public class AdvertisementServiceImpl implements AdvertisementService {
         Set<Advertisement> ads = new HashSet<>();
         advertisementRepository.findAll().iterator().forEachRemaining(ads::add);
         return ads.stream().filter(ad -> ad.getStatus().equals(Status.ACTIVE)).collect(Collectors.toSet());
+    }
+
+    @Override
+    public Set<Advertisement> findAllChecking() {
+        Set<Advertisement> ads = new TreeSet<>(descComparatorById);
+        advertisementRepository.findAll().iterator().forEachRemaining(ads::add);
+        return ads.stream().filter(ad -> ad.getStatus().equals(Status.CHECK)).collect(Collectors.toSet());
+    }
+
+    @Override
+    public Page<Advertisement> findAllCheckingPage(Pageable pageable) {
+        return advertisementRepository.findAllByStatus(pageable, Status.CHECK);
     }
 
     @Override

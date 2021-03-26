@@ -4,6 +4,7 @@ import com.uniloftsky.spingframework.spring5advertismentservice.filter.Advertise
 import com.uniloftsky.spingframework.spring5advertismentservice.filter.AdvertisementSearchCriteria;
 import com.uniloftsky.spingframework.spring5advertismentservice.model.Advertisement;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 
 import java.util.Comparator;
@@ -16,6 +17,10 @@ public interface AdvertisementService extends GenericService<Advertisement, Long
     Set<Advertisement> findAll();
 
     Set<Advertisement> findAllActive();
+
+    Set<Advertisement> findAllChecking();
+
+    Page<Advertisement> findAllCheckingPage(Pageable pageable);
 
     TreeSet<Advertisement> getLastAds(Comparator<Advertisement> comparator, int count);
 
