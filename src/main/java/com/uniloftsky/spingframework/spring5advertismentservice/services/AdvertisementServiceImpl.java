@@ -7,6 +7,7 @@ import com.uniloftsky.spingframework.spring5advertismentservice.filter.Advertise
 import com.uniloftsky.spingframework.spring5advertismentservice.filter.AdvertisementSearchCriteria;
 import com.uniloftsky.spingframework.spring5advertismentservice.model.Advertisement;
 import com.uniloftsky.spingframework.spring5advertismentservice.model.Status;
+import com.uniloftsky.spingframework.spring5advertismentservice.model.User;
 import com.uniloftsky.spingframework.spring5advertismentservice.repositories.AdvertisementRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -75,6 +76,13 @@ public class AdvertisementServiceImpl implements AdvertisementService {
     @Override
     public Page<Advertisement> getFilteredAds(AdvertisementPage advertisementPage, AdvertisementSearchCriteria advertisementSearchCriteria) {
         return advertisementCriteriaRepository.findAllWithFilters(advertisementPage, advertisementSearchCriteria);
+    }
+
+    @Override
+    public Set<Advertisement> getStatusAdsByUser(Status status, User user, Comparator<Advertisement> comparator) {
+        Set<Advertisement> ads = new TreeSet<>(comparator);
+        advertisementRepository.findAll().iterator().forEachRemaining(ads::add);
+        return ads.stream().filter(ad -> ad.getStatus().equals(status) && ad.getUser() == user).collect(toCollection(() -> new TreeSet<>(comparator)));
     }
 
     @Override

@@ -1,10 +1,8 @@
 package com.uniloftsky.spingframework.spring5advertismentservice.controllers;
 
+import com.uniloftsky.spingframework.spring5advertismentservice.comparators.ads.AdAscComparatorById;
 import com.uniloftsky.spingframework.spring5advertismentservice.comparators.user.UserAscComparatorById;
-import com.uniloftsky.spingframework.spring5advertismentservice.model.Advertisement;
-import com.uniloftsky.spingframework.spring5advertismentservice.model.Category;
-import com.uniloftsky.spingframework.spring5advertismentservice.model.City;
-import com.uniloftsky.spingframework.spring5advertismentservice.model.Region;
+import com.uniloftsky.spingframework.spring5advertismentservice.model.*;
 import com.uniloftsky.spingframework.spring5advertismentservice.services.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,8 +14,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -30,6 +30,7 @@ public class AdminController {
     private final RegionService regionService;
     private final CityService cityService;
     private final UserService userService;
+    private final Comparator<Advertisement> comparator = new AdAscComparatorById();
 
     public AdminController(AdvertisementService advertisementService, CategoryService categoryService, RegionService regionService, CityService cityService, UserService userService) {
         this.advertisementService = advertisementService;
@@ -102,5 +103,20 @@ public class AdminController {
     public String getUserPage(Model model) {
         model.addAttribute("users", userService.findAllSortedBy(new UserAscComparatorById()));
         return "admin/user";
+    }
+
+    @GetMapping(value = "/userDetails", params = "id")
+    public String getUserPage(@RequestParam("id") Long id, Model model) {
+        model.addAttribute("user", userService.findById(id));
+        model.addAttribute("activeAds", advertisementService.getStatusAdsByUser(Status.ACTIVE, userService.findById(id), comparator));
+        model.addAttribute("checkAds", advertisementService.getStatusAdsByUser(Status.CHECK, userService.findById(id), comparator));
+        model.addAttribute("blockAds", advertisementService.getStatusAdsByUser(Status.BLOCK, userService.findById(id), comparator));
+        return "admin/userDetails";
+    }
+
+    @GetMapping(value = "/userDelete", params = "id")
+    public String deleteUser(@RequestParam("id") Long id) {
+        userService.delete(userService.findById(id));
+        return "redirect:/admin/user";
     }
 }

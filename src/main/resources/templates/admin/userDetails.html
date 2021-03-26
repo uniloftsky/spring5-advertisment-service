@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
+    <title>Job Board - Адмін-панель </title>
+    <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico"/>
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="css/bootstrap.min.css" th:href="@{/styles/css/bootstrap.min.css}">
+    <link th:href="@{/admin/admin-styles/css/main.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/admin/admin-styles/css/structure.css}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="css/flaticon.css" th:href="@{/styles/css/flaticon.css}">
+    <link rel="stylesheet" href="css/font-awesome.min.css" th:href="@{/styles/css/font-awesome.min.css}">
+
+    <!-- END GLOBAL MANDATORY STYLES -->
+
+    <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM STYLES -->
+    <link href="assets/css/support-chat.css" th:href="@{/admin/admin-styles/css/support-chat.css}" rel="stylesheet"
+          type="text/css"/>
+    <link href="assets/css/default-dashboard/style.css" th:href="@{/admin/admin-styles/css/default-dashboard/style.css}"
+          rel="stylesheet" type="text/css"/>
+    <!-- END PAGE LEVEL PLUGINS/CUSTOM STYLES -->
+
+    <style>
+        .error {
+            border: 1px solid #e4606d;
+        }
+        .error::placeholder {
+            color: #e4606d;
+        }
+    </style>
+</head>
+<body class="default-sidebar">
+
+
+<!-- Tab Mobile View Header -->
+<header class="tabMobileView header navbar fixed-top d-lg-none">
+    <div class="nav-toggle">
+        <a href="" class="nav-link sidebarCollapse" data-placement="bottom">
+            <i class="fa fa-bars"></i>
+        </a>
+        <a href="index.html" class=""> <img src="admin/admin-img/img/logo-3.png" class="img-fluid" alt="logo"></a>
+    </div>
+</header>
+<!-- Tab Mobile View Header -->
+
+<!--  BEGIN NAVBAR  -->
+<header class="header navbar fixed-top navbar-expand-sm">
+    <a href="javascript:void(0);" class="sidebarCollapse d-none d-lg-block" data-placement="bottom"><i
+            class="fa fa-bars"></i></a>
+</header>
+<!--  END NAVBAR  -->
+
+<!--  BEGIN MAIN CONTAINER  -->
+<div class="main-container" id="container">
+
+    <div class="overlay"></div>
+    <div class="cs-overlay"></div>
+
+    <!--  BEGIN SIDEBAR  -->
+
+    <div class="sidebar-wrapper sidebar-theme">
+
+        <div id="dismiss" class="d-lg-none"><i class="fa fa-times"></i></div>
+
+        <nav id="sidebar">
+
+            <ul class="navbar-nav theme-brand flex-row  d-none d-lg-flex">
+                <li class="nav-item d-flex">
+                    <a href="index.html" class="navbar-brand">
+                        <img src="/admin/admin-img/img/logo-3.png" class="img-fluid" alt="logo">
+                    </a>
+                    <p class="border-underline"></p>
+                </li>
+                <li class="nav-item theme-text">
+                    <a href="index.html" class="nav-link"> Job Board </a>
+                </li>
+            </ul>
+
+
+            <ul class="list-unstyled menu-categories" id="accordionExample">
+                <li class="menu">
+                    <a href="#dashboard" data-toggle="collapse" aria-expanded="true" class="dropdown-toggle">
+                        <div class="" style="margin-left: 20px">
+                            <i class="fa fa-tachometer"></i>
+                            <span>Адмін-панель</span>
+                        </div>
+
+                        <div>
+                            <span class="badge badge-pill badge-secondary mr-2">6</span>
+                        </div>
+                    </a>
+                    <ul class="collapse submenu list-unstyled show" id="dashboard" data-parent="#accordionExample">
+                        <li>
+                            <a href="/admin"> <i class="fa fa-desktop"></i> Головна </a>
+                        </li>
+                        <li class="active">
+                            <a href="/admin/user"> <i class="fa fa-user"></i> Користувачі </a>
+                        </li>
+                        <li>
+                            <a href="/admin/category"> <i class="fa fa-cubes"></i> Категорії </a>
+                        </li>
+                        <li>
+                            <a href="/admin/region"> <i class="fa fa-map-marker"></i> Області/Міста </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+
+    </div>
+
+    <!--  END SIDEBAR  -->
+
+    <!--  BEGIN CONTENT PART  -->
+    <div id="content" class="main-content">
+        <div class="container">
+
+            <div class="statbox widget box box-shadow" style="margin-top: 20px">
+                <div class="widget-content">
+                    <div class="row">
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-12 layout-spacing">
+                            <div class="widget-content-area product-detail-2">
+                                <div class="row pt-5">
+                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                        <div class="row">
+                                            <div class="col-xl-5 col-lg-12 mb-xl-0 mb-4">
+                                                <div class="product-slider">
+                                                    <a class="product-image">
+                                                        <div class="preview-pic tab-content">
+                                                            <div class="tab-pane active" id="pic-1">
+                                                                <img src="assets/img/320x320.jpg" th:src="${'/resources/' + user.img}" style="object-fit: contain; max-width: 400px; max-height: 400px;" alt="img" class="img-fluid" />
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-7 col-lg-12">
+                                                <div class="container product-details">
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <h3 class="product-title" th:text="${user.name}">Unisex T-Shirts</h3>
+                                                        </div>
+                                                        <div class="col-sm-12">
+                                                            <p class="product-description mt-3 mb-5" th:text="${user.description}">
+                                                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting
+                                                            </p>
+                                                            <div class="product-pricing mb-4 mt-3">
+                                                                    Логін: <span class="deleted-pricing" th:text="${user.username}"></span>
+                                                            </div>
+                                                            <div class="product-pricing mb-4 mt-3">
+                                                                Пошта: <span class="deleted-pricing" th:text="${user.email}"></span>
+                                                            </div>
+                                                            <div class="product-pricing mb-4 mt-3">
+                                                                Номер телефону: <span class="deleted-pricing" th:text="${user.phone}"></span>
+                                                            </div>
+                                                            <div class="product-pricing mb-4 mt-3">
+                                                                Веб-сайт: <span class="deleted-pricing" th:text="${user.website}"></span>
+                                                            </div>
+                                                            <div class="product-pricing mb-4 mt-3">
+                                                                Офіс: <span class="deleted-pricing" th:text="${user.officeLocation}"></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xl-12 col-lg-12 col-md-12 product-description">
+                                        <div class="product-description-content">
+                                            <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
+                                                <li class="nav-item">
+                                                    <a class="nav-link" id="tabs-description" data-toggle="pill" href="#tabs-desc" role="tab" aria-controls="tabs-desc" aria-selected="true">Активні вакансії</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link active" id="tabs-additional-info" data-toggle="pill" href="#tabs-add-info" role="tab" aria-controls="tabs-add-info" aria-selected="false">Перевіряються</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" id="tabs-review" data-toggle="pill" href="#tabs-rev" role="tab" aria-controls="tabs-rev" aria-selected="false">Заблоковані</a>
+                                                </li>
+                                            </ul>
+                                            <div class="tab-content mt-4" id="myTabContent">
+                                                <div class="tab-pane fade" id="tabs-desc" role="tabpanel" aria-labelledby="tabs-description">
+                                                    <h3 class="mb-4">Активні вакансії:</h3>
+                                                    <div class="table-responsive">
+                                                        <table class="table table-bordered mb-4">
+                                                            <thead>
+                                                            <tr>
+                                                                <th>ID</th>
+                                                                <th>Назва</th>
+                                                                <th>Опис</th>
+                                                                <th>Обов'язки</th>
+                                                                <th>Кваліфікації</th>
+                                                                <th>Пропозиція</th>
+                                                                <th>Зайнятість</th>
+                                                                <th>Дата публікації</th>
+                                                                <th>З/П</th>
+                                                                <th>Категорія</th>
+                                                                <th>Область</th>
+                                                                <th>Місто</th>
+                                                                <th>Дія</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr th:each="ad : ${activeAds}">
+                                                                <td th:text="${ad.id}">Shaun Park</td>
+                                                                <td th:text="${ad.name}">10/08/2018</td>
+                                                                <td th:text="${ad.description}">10/08/2018</td>
+                                                                <td th:text="${ad.responsibilities}">10/08/2018</td>
+                                                                <td th:text="${ad.qualifications}"></td>
+                                                                <td th:text="${ad.offer}">10/08/2018</td>
+                                                                <td th:text="${ad.jobNatural}">10/08/2018</td>
+                                                                <td th:text="${ad.publicDate}">10/08/2018</td>
+                                                                <td th:text="${ad.salary}">10/08/2018</td>
+                                                                <td th:text="${ad.category.name}">10/08/2018</td>
+                                                                <td th:text="${ad.city.region.name}">10/08/2018</td>
+                                                                <td th:text="${ad.city.name}">10/08/2018</td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                                <div class="tab-pane fade show active" id="tabs-add-info" role="tabpanel" aria-labelledby="tabs-additional-info">
+                                                    <h3 class="mb-4">Вакансії на перевірку:</h3>
+                                                    <div class="table-responsive">
+                                                        <table class="table table-bordered mb-4">
+                                                            <thead>
+                                                            <tr>
+                                                                <th>ID</th>
+                                                                <th>Назва</th>
+                                                                <th>Опис</th>
+                                                                <th>Обов'язки</th>
+                                                                <th>Кваліфікації</th>
+                                                                <th>Пропозиція</th>
+                                                                <th>Зайнятість</th>
+                                                                <th>Дата публікації</th>
+                                                                <th>З/П</th>
+                                                                <th>Категорія</th>
+                                                                <th>Область</th>
+                                                                <th>Місто</th>
+                                                                <th>Дія</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr th:each="ad : ${checkAds}">
+                                                                <td th:text="${ad.id}">Shaun Park</td>
+                                                                <td th:text="${ad.name}">10/08/2018</td>
+                                                                <td th:text="${ad.description}">10/08/2018</td>
+                                                                <td th:text="${ad.responsibilities}">10/08/2018</td>
+                                                                <td th:text="${ad.qualifications}"></td>
+                                                                <td th:text="${ad.offer}">10/08/2018</td>
+                                                                <td th:text="${ad.jobNatural}">10/08/2018</td>
+                                                                <td th:text="${ad.publicDate}">10/08/2018</td>
+                                                                <td th:text="${ad.salary}">10/08/2018</td>
+                                                                <td th:text="${ad.category.name}">10/08/2018</td>
+                                                                <td th:text="${ad.city.region.name}">10/08/2018</td>
+                                                                <td th:text="${ad.city.name}">10/08/2018</td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                                <div class="tab-pane fade" id="tabs-rev" role="tabpanel" aria-labelledby="tabs-review">
+                                                    <h3 class="mb-4">Заблоковані вакансії:</h3>
+                                                    <div class="table-responsive">
+                                                        <table class="table table-bordered mb-4">
+                                                            <thead>
+                                                            <tr>
+                                                                <th>ID</th>
+                                                                <th>Назва</th>
+                                                                <th>Опис</th>
+                                                                <th>Обов'язки</th>
+                                                                <th>Кваліфікації</th>
+                                                                <th>Пропозиція</th>
+                                                                <th>Зайнятість</th>
+                                                                <th>Дата публікації</th>
+                                                                <th>З/П</th>
+                                                                <th>Категорія</th>
+                                                                <th>Область</th>
+                                                                <th>Місто</th>
+                                                                <th>Дія</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr th:each="ad : ${blockAds}">
+                                                                <td th:text="${ad.id}">Shaun Park</td>
+                                                                <td th:text="${ad.name}">10/08/2018</td>
+                                                                <td th:text="${ad.description}">10/08/2018</td>
+                                                                <td th:text="${ad.responsibilities}">10/08/2018</td>
+                                                                <td th:text="${ad.qualifications}"></td>
+                                                                <td th:text="${ad.offer}">10/08/2018</td>
+                                                                <td th:text="${ad.jobNatural}">10/08/2018</td>
+                                                                <td th:text="${ad.publicDate}">10/08/2018</td>
+                                                                <td th:text="${ad.salary}">10/08/2018</td>
+                                                                <td th:text="${ad.category.name}">10/08/2018</td>
+                                                                <td th:text="${ad.city.region.name}">10/08/2018</td>
+                                                                <td th:text="${ad.city.name}">10/08/2018</td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--  END CONTENT PART  -->
+
+</div>
+<!-- END MAIN CONTAINER -->
+
+<!-- BEGIN GLOBAL MANDATORY SCRIPTS -->
+<script src="admin/admin-js/js/libs/jquery-3.1.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script th:src="@{/js/popper.min.js}"></script>
+<script src="admin/admin-js/js/app.js"></script>
+<script>
+    $(document).ready(function () {
+        App.init();
+    });
+</script>
+<script src="admin/admin-js/js/custom.js"></script>
+<!-- END GLOBAL MANDATORY SCRIPTS -->
+
+<!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->
+<script src="admin/admin-js/js/default-dashboard/default-custom.js"></script>
+<script src="admin/admin-js/js/support-chat.js"></script>
+<!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->
+</body>
+</html>
