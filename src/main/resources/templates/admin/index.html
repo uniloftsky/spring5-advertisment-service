@@ -180,7 +180,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr th:each="ad : ${checkAds}">
+                                    <tr th:each="ad : ${ads}">
                                         <td class="form-check-column text-center">
                                             <label class="new-control new-checkbox new-checkbox-rounded checkbox-primary pb-2">
                                                 <input type="checkbox" class="new-control-input chkbox">
@@ -202,13 +202,28 @@
                             </div>
                             <div class="pagination-section">
                                 <ul class="pagination pagination-style-1 pagination-rounded justify-content-end mt-3 mb-3">
-                                    <li><a href="javascript:void(0);">«</a></li>
-                                    <li><a href="javascript:void(0);">1</a></li>
-                                    <li><a href="javascript:void(0);">2</a></li>
-                                    <li><a href="javascript:void(0);">3</a></li>
-                                    <li><a href="javascript:void(0);">4</a></li>
-                                    <li><a href="javascript:void(0);">5</a></li>
-                                    <li><a href="javascript:void(0);">»</a></li>
+                                    <li><a th:if="${currentPage != 0}"
+                                           th:href="@{/admin(size=6, page=${currentPage - 1})}"><i
+                                            class="ti-angle-left"></i>«</a></li>
+                                    <li><a th:if="${currentPage - 2 >= 0}"
+                                           th:href="@{/admin(size=6, page=${currentPage - 2})}"
+                                           th:text="${(currentPage + 1) - 2}"></a></li>
+                                    <li><a th:if="${currentPage - 1 >= 0}"
+                                           th:href="@{/admin(size=6, page=${currentPage - 1})}"
+                                           th:text="${(currentPage + 1) - 1}"></a></li>
+                                    <li><a class="" style="text-decoration: underline"
+                                           th:href="@{/admin(size=6, page=${currentPage})}"
+                                           th:text="${currentPage + 1}"></a></li>
+                                    <li><a th:if="${currentPage + 1 <= maxPage - 1}"
+                                           th:href="@{/admin(size=6, page=${currentPage + 1})}"
+                                           th:text="${(currentPage + 1) + 1}"></a>
+                                    </li>
+                                    <li><a th:if="${currentPage + 2 <= maxPage - 1}"
+                                           th:href="@{/admin(size=6, page=${currentPage + 2})}"
+                                           th:text="${(currentPage + 1) + 2}"></a></li>
+                                    <li><a th:if="${currentPage != maxPage - 1}"
+                                           th:href="@{/admin(size=6, page=${currentPage + 1})}"><i
+                                            class="ti-angle-right"></i>»</a></li>
                                 </ul>
                             </div>
                         </div>
