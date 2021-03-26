@@ -111,13 +111,7 @@
                 <div class="popular_search d-flex align-items-center">
                     <span>Популярні запити:</span>
                     <ul>
-                        <li><a href="#">Категорія 1</a></li>
-                        <li><a href="#">Категорія 2</a></li>
-                        <li><a href="#">Категорія 3</a></li>
-                        <li><a href="#">Категорія 4</a></li>
-                        <li><a href="#">Категорія 5</a></li>
-                        <li><a href="#">Категорія 6</a></li>
-                        <li><a href="#">Категорія 7</a></li>
+                        <li th:each="map : ${categoryMap}"><a href="#" th:href="@{/filterAds(category.name = ${map.getKey().name})}" th:text="${map.getKey().name}">Категорія 1</a></li>
                     </ul>
                 </div>
             </div>
@@ -139,7 +133,7 @@
         <div class="row">
             <div th:each="map : ${categoryMap}" class="col-lg-4 col-xl-3 col-md-6">
                 <div class="single_catagory">
-                    <a href="jobs.html"><h4 th:text="${map.getKey().name}">Категорія 1</h4></a>
+                    <a href="jobs.html" th:href="@{/filterAds(category.name = ${map.getKey().name})}"><h4 th:text="${map.getKey().name}">Категорія 1</h4></a>
                     <p><span th:text="${map.getValue()}">50</span> Вільних вакансій</p>
                 </div>
             </div>
