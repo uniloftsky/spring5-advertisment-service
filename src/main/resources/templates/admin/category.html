@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
+    <title>Job Board - Адмін-панель </title>
+    <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico"/>
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="css/bootstrap.min.css" th:href="@{/styles/css/bootstrap.min.css}">
+    <link th:href="@{/admin/admin-styles/css/main.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/admin/admin-styles/css/structure.css}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="css/flaticon.css" th:href="@{/styles/css/flaticon.css}">
+    <link rel="stylesheet" href="css/font-awesome.min.css" th:href="@{/styles/css/font-awesome.min.css}">
+
+    <!-- END GLOBAL MANDATORY STYLES -->
+
+    <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM STYLES -->
+    <link href="assets/css/support-chat.css" th:href="@{/admin/admin-styles/css/support-chat.css}" rel="stylesheet"
+          type="text/css"/>
+    <link href="assets/css/default-dashboard/style.css" th:href="@{/admin/admin-styles/css/default-dashboard/style.css}"
+          rel="stylesheet" type="text/css"/>
+    <!-- END PAGE LEVEL PLUGINS/CUSTOM STYLES -->
+
+    <style>
+        .error {
+            border: 1px solid #e4606d;
+        }
+        .error::placeholder {
+            color: #e4606d;
+        }
+    </style>
+</head>
+<body class="default-sidebar">
+
+
+<!-- Tab Mobile View Header -->
+<header class="tabMobileView header navbar fixed-top d-lg-none">
+    <div class="nav-toggle">
+        <a href="" class="nav-link sidebarCollapse" data-placement="bottom">
+            <i class="fa fa-bars"></i>
+        </a>
+        <a href="index.html" class=""> <img src="admin/admin-img/img/logo-3.png" class="img-fluid" alt="logo"></a>
+    </div>
+</header>
+<!-- Tab Mobile View Header -->
+
+<!--  BEGIN NAVBAR  -->
+<header class="header navbar fixed-top navbar-expand-sm">
+    <a href="javascript:void(0);" class="sidebarCollapse d-none d-lg-block" data-placement="bottom"><i
+            class="fa fa-bars"></i></a>
+</header>
+<!--  END NAVBAR  -->
+
+<!--  BEGIN MAIN CONTAINER  -->
+<div class="main-container" id="container">
+
+    <div class="overlay"></div>
+    <div class="cs-overlay"></div>
+
+    <!--  BEGIN SIDEBAR  -->
+
+    <div class="sidebar-wrapper sidebar-theme">
+
+        <div id="dismiss" class="d-lg-none"><i class="fa fa-times"></i></div>
+
+        <nav id="sidebar">
+
+            <ul class="navbar-nav theme-brand flex-row  d-none d-lg-flex">
+                <li class="nav-item d-flex">
+                    <a href="index.html" class="navbar-brand">
+                        <img src="/admin/admin-img/img/logo-3.png" class="img-fluid" alt="logo">
+                    </a>
+                    <p class="border-underline"></p>
+                </li>
+                <li class="nav-item theme-text">
+                    <a href="index.html" class="nav-link"> Job Board </a>
+                </li>
+            </ul>
+
+
+            <ul class="list-unstyled menu-categories" id="accordionExample">
+                <li class="menu">
+                    <a href="#dashboard" data-toggle="collapse" aria-expanded="true" class="dropdown-toggle">
+                        <div class="" style="margin-left: 20px">
+                            <i class="fa fa-tachometer"></i>
+                            <span>Адмін-панель</span>
+                        </div>
+
+                        <div>
+                            <span class="badge badge-pill badge-secondary mr-2">6</span>
+                        </div>
+                    </a>
+                    <ul class="collapse submenu list-unstyled show" id="dashboard" data-parent="#accordionExample">
+                        <li>
+                            <a href="index.html"> <i class="fa fa-desktop"></i> Головна </a>
+                        </li>
+                        <li>
+                            <a href="accounting_dashboard.html"> <i class="fa fa-user"></i> Користувачі </a>
+                        </li>
+                        <li class="active">
+                            <a href="/admin/category"> <i class="fa fa-cubes"></i> Категорії </a>
+                        </li>
+                        <li>
+                            <a href="/admin/region"> <i class="fa fa-map-marker"></i> Області/Міста </a>
+                        </li>
+                        <!--                        <li>
+                                                    <a href="cryptocurrency_dashboard.html"> <i class="fa fa-map"></i>Міста </a>
+                                                </li>-->
+                        <li>
+                            <a href="cryptocurrency_dashboard.html"> <i class="fa fa-briefcase"></i>Вакансії </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+
+    </div>
+
+    <!--  END SIDEBAR  -->
+
+    <!--  BEGIN CONTENT PART  -->
+    <div id="content" class="main-content">
+        <div class="container">
+
+            <div class="row" style="margin-top: 20px;">
+                <div class="col-lg-12 col-md-12 layout-spacing">
+                    <div class="statbox widget box box-shadow">
+                        <div class="widget-header">
+                            <div class="row">
+                                <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+                                    <h4>Список категорій</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="widget-content widget-content-area">
+                            <div class="table-responsive">
+                                <table class="table table-bordered mb-4">
+                                    <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Назва</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="cat : ${categories}">
+                                        <td th:text="${cat.id}">Shaun Park</td>
+                                        <td th:text="${cat.name}">10/08/2018</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 layout-spacing">
+                    <div class="statbox widget box box-shadow">
+                        <div class="widget-header">
+                            <div class="row">
+                                <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+                                    <h4>Додавання категорії</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="widget-content widget-content-area">
+                            <form class="form-inline justify-content-center mb-4" th:action="@{/categoryAdd}" method="post" th:object="${category}">
+                                <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2"
+                                       placeholder="Назва" th:field="*{name}" th:errorclass="error">
+                                <button type="submit" class="btn btn-button-7 mb-2">Додати</button>
+                            </form>
+                            <div th:if="${success}" class="alert alert-success" role="alert">Категорія додана</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--  END CONTENT PART  -->
+
+</div>
+<!-- END MAIN CONTAINER -->
+
+<!-- BEGIN GLOBAL MANDATORY SCRIPTS -->
+<script src="admin/admin-js/js/libs/jquery-3.1.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script th:src="@{/js/popper.min.js}"></script>
+<script src="admin/admin-js/js/app.js"></script>
+<script>
+    $(document).ready(function () {
+        App.init();
+    });
+</script>
+<script src="admin/admin-js/js/custom.js"></script>
+<!-- END GLOBAL MANDATORY SCRIPTS -->
+
+<!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->
+<script src="admin/admin-js/js/default-dashboard/default-custom.js"></script>
+<script src="admin/admin-js/js/support-chat.js"></script>
+<!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->
+</body>
+</html>

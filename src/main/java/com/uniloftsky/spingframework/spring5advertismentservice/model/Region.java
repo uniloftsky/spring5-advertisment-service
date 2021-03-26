@@ -7,6 +7,7 @@ import lombok.Setter;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotBlank;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -20,6 +21,7 @@ public class Region extends BaseEntity {
         this.name = name;
     }
 
+    @NotBlank(message = "{user.field.NotBlank}")
     private String name;
 
     @OneToMany(mappedBy = "region", cascade = CascadeType.ALL)

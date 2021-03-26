@@ -30,12 +30,18 @@
 <header class="tabMobileView header navbar fixed-top d-lg-none">
     <div class="nav-toggle">
         <a href="" class="nav-link sidebarCollapse" data-placement="bottom">
-            <i class="fa fa-ellipsis-v"></i>
+            <i class="fa fa-bars"></i>
         </a>
         <a href="index.html" class=""> <img src="admin/admin-img/img/logo-3.png" class="img-fluid" alt="logo"></a>
     </div>
 </header>
 <!-- Tab Mobile View Header -->
+
+<!--  BEGIN NAVBAR  -->
+<header class="header navbar fixed-top navbar-expand-sm">
+    <a href="javascript:void(0);" class="sidebarCollapse d-none d-lg-block" data-placement="bottom"><i class="fa fa-bars"></i></a>
+</header>
+<!--  END NAVBAR  -->
 
 <!--  BEGIN MAIN CONTAINER  -->
 <div class="main-container" id="container">
@@ -47,7 +53,7 @@
 
     <div class="sidebar-wrapper sidebar-theme">
 
-        <div id="dismiss" class="d-lg-none"><i class="flaticon-cancel-12"></i></div>
+        <div id="dismiss" class="d-lg-none"><i class="fa fa-times"></i></div>
 
         <nav id="sidebar">
 
@@ -84,14 +90,14 @@
                             <a href="accounting_dashboard.html"> <i class="fa fa-user"></i> Користувачі </a>
                         </li>
                         <li>
-                            <a href="classic_dashboard.html"> <i class="fa fa-cubes"></i> Категорії </a>
+                            <a href="/admin/category"> <i class="fa fa-cubes"></i> Категорії </a>
                         </li>
                         <li>
-                            <a href="stock_market_dashboard.html"> <i class="fa fa-map-marker"></i> Області </a>
+                            <a href="/admin/region"> <i class="fa fa-map-marker"></i> Області/Міста </a>
                         </li>
-                        <li>
+<!--                        <li>
                             <a href="cryptocurrency_dashboard.html"> <i class="fa fa-map"></i>Міста </a>
-                        </li>
+                        </li>-->
                         <li>
                             <a href="cryptocurrency_dashboard.html"> <i class="fa fa-briefcase"></i>Вакансії </a>
                         </li>
@@ -105,7 +111,7 @@
     <!--  END SIDEBAR  -->
 
     <!--  BEGIN CONTENT PART  -->
-    <div id="content" class="main-content" style="margin-top: 0;">
+    <div id="content" class="main-content">
         <div class="container">
             <div class="page-header">
                 <div class="page-title">

@@ -7,9 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -36,6 +34,13 @@ public class UserServiceImpl implements UserService {
         } else {
             return userRepository.findByUsername(username);
         }
+    }
+
+    @Override
+    public Set<User> findAllSortedBy(Comparator<User> comparator) {
+        Set<User> users = new TreeSet<>(comparator);
+        userRepository.findAll().iterator().forEachRemaining(users::add);
+        return users;
     }
 
     @Override

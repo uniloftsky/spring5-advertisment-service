@@ -4,6 +4,7 @@ import com.uniloftsky.spingframework.spring5advertismentservice.model.User;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.Set;
 
 public interface UserService extends GenericService<User, Long> {
@@ -12,6 +13,8 @@ public interface UserService extends GenericService<User, Long> {
     Set<User> findAll();
 
     User findByUsername(String username);
+
+    Set<User> findAllSortedBy(Comparator<User> comparator);
 
     @Override
     User findById(Long aLong);
