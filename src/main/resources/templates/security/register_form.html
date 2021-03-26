@@ -45,7 +45,7 @@
                 <form th:action="@{/register}" th:object="${user}" method="post" enctype="multipart/form-data">
                     <label class="form-label">Логін:</label>
                     <div class="mt-0">
-                        <div class="ui input" style="width: 100%;" th:errorclass="error" name="username">
+                        <div class="ui input" style="width: 100%;" th:errorclass="error" th:classappend="${loginError ? 'error' : ''}" name="username">
                             <input type="text" placeholder="Логін" th:field="*{username}">
                         </div>
                     </div>
@@ -54,11 +54,17 @@
                             <li th:each="err : ${#fields.errors('username')}" th:text="${err}"></li>
                         </ul>
                     </div>
+                    <p class="invalid-feedback" style="display: block;" th:if="${loginError}">Такий логін вже використовується</p>
                     <label class="form-label">Пароль:</label>
                     <div class="mt-0">
                         <div class="ui input" style="width: 100%;" th:errorclass="error" name="password">
                             <input type="password" placeholder="Пароль" th:field="*{password}">
                         </div>
+                    </div>
+                    <div th:if="${#fields.hasErrors('password')}" class="invalid-feedback" style="display: block;">
+                        <ul style="padding-left: 1em;">
+                            <li th:each="err : ${#fields.errors('password')}" th:text="${err}"></li>
+                        </ul>
                     </div>
                     <label class="form-label">Назва організації або ФОП:</label>
                     <div class="mt-0">
