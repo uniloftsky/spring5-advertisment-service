@@ -52,97 +52,156 @@
                             </div>
                             <div class="jobs_conetent">
                                 <a href="#"><h4 th:text="${user.name}">Google Inc.</h4></a>
-                                <button th:if="${user.username == #authentication.getName()}" class="boxed-btn3" style="font-size: 12px; padding: 5px 15px;" onclick="window.location = '/editProfile'">Редагувати</button>
-                                <form style="display: none;" th:action="@{/logout}" method="post" id="logout-form"></form>
-                                <button th:if="${user.username == #authentication.getName()}" class="boxed-btn2" style="font-size: 12px; padding: 6px 15px;" id="logout-button">Вийти</button>
+                                <button th:if="${user.username == #authentication.getName()}" class="boxed-btn3"
+                                        style="font-size: 12px; padding: 5px 15px;"
+                                        onclick="window.location = '/editProfile'">Редагувати
+                                </button>
+                                <form style="display: none;" th:action="@{/logout}" method="post"
+                                      id="logout-form"></form>
+                                <button th:if="${user.username == #authentication.getName()}" class="boxed-btn4 click"
+                                        style="font-size: 12px; padding: 6px 15px;">Змінити пароль
+                                </button>
+                                <button th:if="${user.username == #authentication.getName()}" class="boxed-btn2"
+                                        style="font-size: 12px; padding: 6px 15px;" id="logout-button">Вийти
+                                </button>
                                 <div class="links_locat d-flex align-items-center" style="margin-top: 10px;">
-                                    <div class="location">
-                                        <p><i class="fa fa-map-marker"></i> <span th:text="${user.officeLocation}">Житомирська область, м. Бердичів</span></p>
-                                    </div>
-                                    <div class="location">
-                                        <p><i class="fa fa-globe"></i> <span th:text="${user.website}">google.com</span></p>
-                                    </div>
-                                    <div class="location">
-                                        <p><i class="fa fa-envelope"></i> <span th:text="${user.email}">mail@mail.com</span></p>
-                                    </div>
-                                    <div class="location">
-                                        <p><i class="fa fa-phone"></i> <span th:text="${user.phone}">mail@mail.com</span></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="descript_wrap white-bg" style="margin-bottom: 2em;">
-                    <div class="single_wrap">
-                        <h4>Коротка інформація</h4>
-                        <p th:text="${user.description}">There are many variations of passages of Lorem Ipsum available, but the majority have
-                            suffered alteration in some form, by injected humour, or randomised words which don't look
-                            even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be
-                            sure there isn't anything embarrassing.</p>
-                    </div>
-                </div>
-                <div class="descript_wrap white-bg">
-                    <div class="single_wrap">
-                        <h4>Вакансії компаії</h4>
-                        <div class="job_lists">
-                            <div class="row">
-                                <div th:each="ad : ${ads}" class="col-lg-12 col-md-12">
-                                    <div class="single_jobs white-bg d-flex justify-content-between">
-                                        <div class="jobs_left d-flex align-items-center">
-                                                <img th:src="${'/resources/' + ad.user.img}"  src="img/svg_icon/4.svg" alt="" style="object-fit: contain; max-width: 100px; max-height: 100px; margin-right: 20px;">
-                                            <div class="jobs_conetent">
-                                                <div class="d-flex align-items-baseline">
-                                                    <a href="job_details.html" th:href="@{/ad(id = ${ad.id})}" style="margin-right: 10px;"><h4 th:text="${ad.name}">Visual
-                                                        Designer</h4></a>
-                                                </div>
-                                                <div class="links_locat d-flex align-items-center">
-                                                    <div class="location">
-                                                        <p><i class="fa fa-map-marker"></i> <span th:text="${ad.city.region.name}">Житомирська</span> область, м.
-                                                            <span th:text="${ad.city.name}">Бердичів</span></p>
-                                                    </div>
-                                                    <div class="location">
-                                                        <p><i class="fa fa-cubes"></i> <span th:text="${ad.category.name}">Cat</span></p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="jobs_right">
-                                            <div class="apply_now">
-                                                <a href="/item" th:href="@{/ad(id = ${ad.id})}" class="boxed-btn3">Відгукнутись</a>
-                                            </div>
-                                            <div class="date">
-                                                <p>Опубліковано: <span th:text="${ad.publicDate}">31 Jan 2020</span></p>
-                                            </div>
-                                            <a href="#" th:if="${ad.status == T(com.uniloftsky.spingframework.spring5advertismentservice.model.Status).ACTIVE && #authentication.getName() == #request.getParameter('user')}" class="genric-btn success-border"
-                                               style="line-height: 20px; height: 20px;">Активно</a>
-                                            <a href="#" th:if="${ad.status == T(com.uniloftsky.spingframework.spring5advertismentservice.model.Status).BLOCK && #authentication.getName() == #request.getParameter('user')}" class="genric-btn danger-border"
-                                               style="line-height: 20px; height: 20px;">Заблоковано</a>
-                                            <a href="#" th:if="${ad.status == T(com.uniloftsky.spingframework.spring5advertismentservice.model.Status).CHECK && #authentication.getName() == #request.getParameter('user')}" class="genric-btn warning-border"
-                                               style="line-height: 20px; height: 20px;">Перевіряється</a>
-                                            <a href="" th:href="@{/deleteAd(id = ${ad.id})}" th:if="${#authentication.getName() == #request.getParameter('user')}" style="color: #e4606d"> Видалити</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
+                                    <div class="links_locat d-flex align-items-center" style="margin-top: 10px;">
+                                        <div class="location">
+                                            <p><i class="fa fa-map-marker"></i> <span th:text="${user.officeLocation}">Житомирська область, м. Бердичів</span>
+                                            </p>
+                                        </div>
+                                        <div class="location">
+                                            <p><i class="fa fa-globe"></i> <span
+                                                    th:text="${user.website}">google.com</span></p>
+                                        </div>
+                                        <div class="location">
+                                            <p><i class="fa fa-envelope"></i> <span th:text="${user.email}">mail@mail.com</span>
+                                            </p>
+                                        </div>
+                                        <div class="location">
+                                            <p><i class="fa fa-phone"></i> <span
+                                                    th:text="${user.phone}">mail@mail.com</span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="descript_wrap white-bg" style="margin-bottom: 2em;">
+                        <div class="single_wrap">
+                            <h4>Коротка інформація</h4>
+                            <p th:text="${user.description}">There are many variations of passages of Lorem Ipsum
+                                available, but the majority have
+                                suffered alteration in some form, by injected humour, or randomised words which don't
+                                look
+                                even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to
+                                be
+                                sure there isn't anything embarrassing.</p>
+                        </div>
+                    </div>
+                    <div class="descript_wrap white-bg">
+                        <div class="single_wrap">
+                            <h4>Вакансії компаії</h4>
+                            <div class="job_lists">
+                                <div class="row">
+                                    <div th:each="ad : ${ads}" class="col-lg-12 col-md-12">
+                                        <div class="single_jobs white-bg d-flex justify-content-between">
+                                            <div class="jobs_left d-flex align-items-center">
+                                                <img th:src="${'/resources/' + ad.user.img}" src="img/svg_icon/4.svg"
+                                                     alt=""
+                                                     style="object-fit: contain; max-width: 100px; max-height: 100px; margin-right: 20px;">
+                                                <div class="jobs_conetent">
+                                                    <div class="d-flex align-items-baseline">
+                                                        <a href="job_details.html" th:href="@{/ad(id = ${ad.id})}"
+                                                           style="margin-right: 10px;"><h4 th:text="${ad.name}">Visual
+                                                            Designer</h4></a>
+                                                    </div>
+                                                    <div class="links_locat d-flex align-items-center">
+                                                        <div class="location">
+                                                            <p><i class="fa fa-map-marker"></i> <span
+                                                                    th:text="${ad.city.region.name}">Житомирська</span>
+                                                                область, м.
+                                                                <span th:text="${ad.city.name}">Бердичів</span></p>
+                                                        </div>
+                                                        <div class="location">
+                                                            <p><i class="fa fa-cubes"></i> <span
+                                                                    th:text="${ad.category.name}">Cat</span></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="jobs_right">
+                                                <div class="apply_now">
+                                                    <a href="/item" th:href="@{/ad(id = ${ad.id})}" class="boxed-btn3">Відгукнутись</a>
+                                                </div>
+                                                <div class="date">
+                                                    <p>Опубліковано: <span th:text="${ad.publicDate}">31 Jan 2020</span>
+                                                    </p>
+                                                </div>
+                                                <a href="#"
+                                                   th:if="${ad.status == T(com.uniloftsky.spingframework.spring5advertismentservice.model.Status).ACTIVE && #authentication.getName() == #request.getParameter('user')}"
+                                                   class="genric-btn success-border"
+                                                   style="line-height: 20px; height: 20px;">Активно</a>
+                                                <a href="#"
+                                                   th:if="${ad.status == T(com.uniloftsky.spingframework.spring5advertismentservice.model.Status).BLOCK && #authentication.getName() == #request.getParameter('user')}"
+                                                   class="genric-btn danger-border"
+                                                   style="line-height: 20px; height: 20px;">Заблоковано</a>
+                                                <a href="#"
+                                                   th:if="${ad.status == T(com.uniloftsky.spingframework.spring5advertismentservice.model.Status).CHECK && #authentication.getName() == #request.getParameter('user')}"
+                                                   class="genric-btn warning-border"
+                                                   style="line-height: 20px; height: 20px;">Перевіряється</a>
+                                                <a href="" th:href="@{/deleteAd(id = ${ad.id})}"
+                                                   th:if="${#authentication.getName() == #request.getParameter('user')}"
+                                                   style="color: #e4606d"> Видалити</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<th:block th:insert="~{fragments/footer}"></th:block>
-<th:block th:insert="~{fragments/footer-links}"></th:block>
-<script>
-    var form = document.getElementById("logout-form");
+    <div class="ui mini modal" style="height: 250px; max-height: 250px;">
+        <div class="header change-password-header" style="border-bottom: 0;">Зміна паролю</div>
+        <div class="content">
+            <form id="changePasswordId" method="post" th:action="@{/changePassword}">
+                <div class="input-block-inner change-password">
+                    <label th:class="${passwordError ? 'label-error' : ''}">Новий пароль:</label>
+                    <div class="ui input" th:class="${passwordError ? 'ui input error' : 'ui input'}" style="width: 100%;">
+                        <input type="password" name="newPassword" placeholder="Новий пароль">
+                    </div>
+                    <div th:if="${passwordError}" class="invalid-feedback" style="display: block;">
+                        Пароль не може бути порожнім
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="actions" style="border-top: 0">
+            <div class="ui negative button">Назад</div>
+            <div onclick="document.getElementById('changePasswordId').submit();" class="ui positive button">Змінити</div>
+        </div>
+    </div>
 
-    document.getElementById("logout-button").addEventListener("click", function () {
-        form.submit();
-    });
-</script>
+    <th:block th:insert="~{fragments/footer}"></th:block>
+    <th:block th:insert="~{fragments/footer-links}"></th:block>
+    <script type="text/javascript">
+        var form = document.getElementById("logout-form");
+
+        document.getElementById("logout-button").addEventListener("click", function () {
+            form.submit();
+        });
+
+        $('.click').click(function () {
+            $('.mini.modal')
+                .modal('show');
+        });
+    </script>
 
 </body>
 </html>

@@ -35,6 +35,7 @@ public class UserController {
             return "security/login_form";
         }
         model.addAttribute("user", userService.findByUsername(login));
+        model.addAttribute("passwordError", false);
         model.addAttribute("ads", advertisementService.findAllSortedByByUser(new AdAscComparatorById(), userService.findByUsername(login)));
         return "profile/companyProfile";
     }
@@ -49,8 +50,8 @@ public class UserController {
     }
 
     @GetMapping(value = "/editProfile", params = "user")
-    public String editProfileFormInit(@RequestParam("user") String login, Model model) {
-        if (login.equals("anonymousUser")) {
+    public String editProfileFormInit(@RequestParam("user") String login, Model model, Authentication authentication) {
+        if (login.equals("anonymousUser") || !login.equals(authentication.getName())) {
             return "security/login_form";
         }
         model.addAttribute("user", userService.findByUsername(login));
@@ -78,10 +79,24 @@ public class UserController {
     @GetMapping(value = "/deleteAd", params = "id")
     public String deleteUserAd(@RequestParam("id") Long id, Authentication authentication) {
         Advertisement ad = advertisementService.findById(id);
-        if(authentication == null || !authentication.getName().equals(ad.getUser().getUsername())) {
+        if (authentication == null || !authentication.getName().equals(ad.getUser().getUsername())) {
             return "redirect:/";
         }
         advertisementService.delete(ad);
+        return "redirect:/profile";
+    }
+
+    @PostMapping("/changePassword")
+    public String changePassword(Authentication authentication, @RequestParam("newPassword") String password, Model model) {
+        if (authentication == null || authentication.getName().equals("anonymousUser")) {
+            return "redirect:/";
+        }
+        if(password.isEmpty()) {
+            model.addAttribute("passwordError", true);
+            model.addAttribute("user", userService.findByUsername(authentication.getName()));
+            return "profile/companyProfile";
+        }
+        userService.changePassword(userService.findByUsername(authentication.getName()), password);
         return "redirect:/profile";
     }
 }

@@ -24,6 +24,8 @@ public interface UserService extends GenericService<User, Long> {
 
     User save(User obj, MultipartFile file) throws IOException;
 
+    User changePassword(User user, String password);
+
     @Override
     void delete(User obj);
 }
