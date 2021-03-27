@@ -2,6 +2,7 @@ package com.uniloftsky.spingframework.spring5advertismentservice.services;
 
 import com.uniloftsky.spingframework.spring5advertismentservice.comparators.ads.AdAscComparatorById;
 import com.uniloftsky.spingframework.spring5advertismentservice.comparators.ads.AdDescComparatorById;
+import com.uniloftsky.spingframework.spring5advertismentservice.exceptions.NotFoundException;
 import com.uniloftsky.spingframework.spring5advertismentservice.filter.AdvertisementCriteriaRepository;
 import com.uniloftsky.spingframework.spring5advertismentservice.filter.AdvertisementPage;
 import com.uniloftsky.spingframework.spring5advertismentservice.filter.AdvertisementSearchCriteria;
@@ -106,7 +107,7 @@ public class AdvertisementServiceImpl implements AdvertisementService {
     public Advertisement findById(Long aLong) {
         Optional<Advertisement> advertisementOptional = advertisementRepository.findById(aLong);
         if (advertisementOptional.isEmpty()) {
-            throw new RuntimeException("Expected ad not found!");
+            throw new NotFoundException("Вакансію з задним ID не знайдено");
         }
         return advertisementOptional.get();
     }

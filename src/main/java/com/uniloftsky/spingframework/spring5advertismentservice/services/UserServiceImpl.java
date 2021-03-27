@@ -1,5 +1,6 @@
 package com.uniloftsky.spingframework.spring5advertismentservice.services;
 
+import com.uniloftsky.spingframework.spring5advertismentservice.exceptions.NotFoundException;
 import com.uniloftsky.spingframework.spring5advertismentservice.model.User;
 import com.uniloftsky.spingframework.spring5advertismentservice.repositories.UserRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -31,7 +32,7 @@ public class UserServiceImpl implements UserService {
     public User findByUsername(String username) {
         Optional<User> userOptional = userRepository.findByUsername(username);
         if (userOptional.isEmpty()) {
-            throw new RuntimeException("Expected user not found!");
+            throw new NotFoundException("Користувача з заданим логіном не знайдено");
         } else {
             return userOptional.get();
         }
@@ -48,7 +49,7 @@ public class UserServiceImpl implements UserService {
     public User findById(Long aLong) {
         Optional<User> userOptional = userRepository.findById(aLong);
         if (userOptional.isEmpty()) {
-            throw new RuntimeException("Expected user not found!");
+            throw new NotFoundException("Користувача з заданим ID не знайдено");
         }
         return userOptional.get();
     }

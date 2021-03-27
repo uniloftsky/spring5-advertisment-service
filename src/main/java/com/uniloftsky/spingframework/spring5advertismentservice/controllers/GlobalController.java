@@ -3,10 +3,15 @@ package com.uniloftsky.spingframework.spring5advertismentservice.controllers;
 import com.uniloftsky.spingframework.spring5advertismentservice.comparators.categories.CategoryAscComparatorByName;
 import com.uniloftsky.spingframework.spring5advertismentservice.comparators.cities.CityAscComparatorByName;
 import com.uniloftsky.spingframework.spring5advertismentservice.comparators.regions.RegionAscComparatorByName;
+import com.uniloftsky.spingframework.spring5advertismentservice.exceptions.NotFoundException;
 import com.uniloftsky.spingframework.spring5advertismentservice.model.*;
 import com.uniloftsky.spingframework.spring5advertismentservice.services.*;
+import org.springframework.http.HttpStatus;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.util.Comparator;
 import java.util.Set;
@@ -59,6 +64,13 @@ public class GlobalController {
     @ModelAttribute("users")
     public Set<User> getAllUsers() {
         return userService.findAll();
+    }
+
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(NotFoundException.class)
+    public String handleNotFound(Exception exception, Model model){
+        model.addAttribute("exception", exception);
+        return "error/404error";
     }
 
 }

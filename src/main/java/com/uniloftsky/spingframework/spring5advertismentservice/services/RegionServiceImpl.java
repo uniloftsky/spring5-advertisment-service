@@ -1,5 +1,6 @@
 package com.uniloftsky.spingframework.spring5advertismentservice.services;
 
+import com.uniloftsky.spingframework.spring5advertismentservice.exceptions.NotFoundException;
 import com.uniloftsky.spingframework.spring5advertismentservice.model.Region;
 import com.uniloftsky.spingframework.spring5advertismentservice.repositories.RegionRepository;
 import org.springframework.stereotype.Service;
@@ -33,7 +34,7 @@ public class RegionServiceImpl implements RegionService {
     public Region findById(Long aLong) {
         Optional<Region> regionOptional = regionRepository.findById(aLong);
         if (regionOptional.isEmpty()) {
-            throw new RuntimeException("Expected region not found!");
+            throw new NotFoundException("Область з заданим ID не знайдено");
         }
         return regionOptional.get();
     }

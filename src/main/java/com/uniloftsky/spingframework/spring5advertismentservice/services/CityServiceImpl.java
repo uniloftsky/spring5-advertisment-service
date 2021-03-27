@@ -1,5 +1,6 @@
 package com.uniloftsky.spingframework.spring5advertismentservice.services;
 
+import com.uniloftsky.spingframework.spring5advertismentservice.exceptions.NotFoundException;
 import com.uniloftsky.spingframework.spring5advertismentservice.model.City;
 import com.uniloftsky.spingframework.spring5advertismentservice.repositories.CityRepository;
 import org.springframework.stereotype.Service;
@@ -33,7 +34,7 @@ public class CityServiceImpl implements CityService {
     public City findById(Long aLong) {
         Optional<City> cityOptional = cityRepository.findById(aLong);
         if (cityOptional.isEmpty()) {
-            throw new RuntimeException("Expected city not found!");
+            throw new NotFoundException("Місто з заданим ID не знайдено");
         }
         return cityOptional.get();
     }

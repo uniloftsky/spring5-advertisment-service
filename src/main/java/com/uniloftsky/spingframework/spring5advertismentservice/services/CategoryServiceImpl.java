@@ -1,6 +1,7 @@
 package com.uniloftsky.spingframework.spring5advertismentservice.services;
 
 import com.uniloftsky.spingframework.spring5advertismentservice.comparators.categories.CategoryDescComparatorByAdsCount;
+import com.uniloftsky.spingframework.spring5advertismentservice.exceptions.NotFoundException;
 import com.uniloftsky.spingframework.spring5advertismentservice.model.Category;
 import com.uniloftsky.spingframework.spring5advertismentservice.repositories.CategoryRepository;
 import org.springframework.stereotype.Service;
@@ -55,7 +56,7 @@ public class CategoryServiceImpl implements CategoryService {
     public Category findById(Long aLong) {
         Optional<Category> categoryOptional = categoryRepository.findById(aLong);
         if (categoryOptional.isEmpty()) {
-            throw new RuntimeException("Expected category not found!");
+            throw new NotFoundException("Категорію з заданим ID не знайдено");
         }
         return categoryOptional.get();
     }

@@ -1,5 +1,6 @@
 package com.uniloftsky.spingframework.spring5advertismentservice.services;
 
+import com.uniloftsky.spingframework.spring5advertismentservice.exceptions.NotFoundException;
 import com.uniloftsky.spingframework.spring5advertismentservice.model.Role;
 import com.uniloftsky.spingframework.spring5advertismentservice.repositories.RoleRepository;
 import org.springframework.stereotype.Service;
@@ -28,7 +29,7 @@ public class RoleServiceImpl implements RoleService {
     public Role findById(Long aLong) {
         Optional<Role> roleOptional = roleRepository.findById(aLong);
         if (roleOptional.isEmpty()) {
-            throw new RuntimeException("Expected role not found!");
+            throw new NotFoundException("Роль з заданим ID не знайдено");
         }
         return roleOptional.get();
     }
