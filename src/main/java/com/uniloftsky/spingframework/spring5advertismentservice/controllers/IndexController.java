@@ -1,6 +1,7 @@
 package com.uniloftsky.spingframework.spring5advertismentservice.controllers;
 
 import com.uniloftsky.spingframework.spring5advertismentservice.comparators.ads.AdDescComparatorById;
+import com.uniloftsky.spingframework.spring5advertismentservice.comparators.categories.CategoryAscComparatorById;
 import com.uniloftsky.spingframework.spring5advertismentservice.model.Advertisement;
 import com.uniloftsky.spingframework.spring5advertismentservice.model.Category;
 import com.uniloftsky.spingframework.spring5advertismentservice.services.AdvertisementService;
@@ -12,6 +13,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import java.util.Comparator;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
+
+import static java.util.stream.Collectors.toCollection;
 
 @Controller
 public class IndexController {
@@ -48,6 +52,12 @@ public class IndexController {
     @ModelAttribute("categoryMap")
     public Map<Category, Integer> getCategoryMap() {
         return categoryService.getCategoriesCount();
+    }
+
+    //bad
+    @ModelAttribute("categoriesFooter")
+    public TreeSet<Category> getCategoriesFooter() {
+        return categoryService.getSortedCategories(new CategoryAscComparatorById()).stream().limit(4).collect(toCollection(() -> new TreeSet<>(new CategoryAscComparatorById())));
     }
 
     @GetMapping("/forbidden")

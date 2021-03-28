@@ -3,6 +3,7 @@ package com.uniloftsky.spingframework.spring5advertismentservice.controllers;
 import com.uniloftsky.spingframework.spring5advertismentservice.filter.AdvertisementPage;
 import com.uniloftsky.spingframework.spring5advertismentservice.filter.AdvertisementSearchCriteria;
 import com.uniloftsky.spingframework.spring5advertismentservice.model.Advertisement;
+import com.uniloftsky.spingframework.spring5advertismentservice.model.Status;
 import com.uniloftsky.spingframework.spring5advertismentservice.services.AdvertisementService;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.Authentication;
@@ -62,8 +63,11 @@ public class AdsController {
 
     @GetMapping(value = "/ad", params = "id")
     public String getAdPage(@RequestParam("id") Long id, Model model) {
-        model.addAttribute("ad", advertisementService.findById(id));
-        return "item";
+        if (advertisementService.findById(id).getStatus().equals(Status.ACTIVE)) {
+            model.addAttribute("ad", advertisementService.findById(id));
+            return "item";
+        }
+        return "redirect:/";
     }
 
 }
