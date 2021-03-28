@@ -3,12 +3,14 @@ package com.uniloftsky.spingframework.spring5advertismentservice.services;
 import com.uniloftsky.spingframework.spring5advertismentservice.comparators.categories.CategoryDescComparatorByAdsCount;
 import com.uniloftsky.spingframework.spring5advertismentservice.exceptions.NotFoundException;
 import com.uniloftsky.spingframework.spring5advertismentservice.model.Category;
+import com.uniloftsky.spingframework.spring5advertismentservice.model.Status;
 import com.uniloftsky.spingframework.spring5advertismentservice.repositories.CategoryRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
 import static java.util.stream.Collectors.toCollection;
+import static java.util.stream.Collectors.toSet;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
@@ -47,7 +49,7 @@ public class CategoryServiceImpl implements CategoryService {
 
         categoryRepository.findAll().iterator().forEachRemaining(categories::add);
         for (Category category : categories.stream().limit(8).collect(toCollection(() -> new TreeSet<>(comparator)))) {
-            categoryIntegerMap.put(category, category.getAds().size());
+            categoryIntegerMap.put(category, category.getAds().stream().filter(ad -> ad.getStatus().equals(Status.ACTIVE)).collect(toSet()).size());
         }
         return categoryIntegerMap;
     }

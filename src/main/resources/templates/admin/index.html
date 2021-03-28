@@ -194,7 +194,7 @@
                                         <td th:text="${ad.city.region.name}">#0001</td>
                                         <td class="text-center" th:text="${ad.city.name}">1</td>
                                         <td>
-                                            <a th:href="@{/profile(user = ${ad.user.username})}"
+                                            <a th:href="@{/admin/userDetails(id = ${ad.user.id})}"
                                                th:text="${ad.user.name}"></a>
                                         </td>
                                         <td>
