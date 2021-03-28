@@ -63,8 +63,8 @@ public class AdvertisementServiceImpl implements AdvertisementService {
     }
 
     @Override
-    public TreeSet<Advertisement> getLastAds(Comparator<Advertisement> comparator, int count) {
-        return findAllSortedBy(comparator).stream().limit(count).collect(toCollection(() -> new TreeSet<>(comparator)));
+    public TreeSet<Advertisement> getLastAds(Comparator<Advertisement> comparator, int count, Status status) {
+        return findAllSortedBy(comparator).stream().filter(ad -> ad.getStatus().equals(status)).limit(count).collect(toCollection(() -> new TreeSet<>(comparator)));
     }
 
     @Override

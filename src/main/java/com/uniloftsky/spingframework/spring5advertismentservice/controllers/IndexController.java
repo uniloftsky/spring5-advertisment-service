@@ -4,6 +4,7 @@ import com.uniloftsky.spingframework.spring5advertismentservice.comparators.ads.
 import com.uniloftsky.spingframework.spring5advertismentservice.comparators.categories.CategoryAscComparatorById;
 import com.uniloftsky.spingframework.spring5advertismentservice.model.Advertisement;
 import com.uniloftsky.spingframework.spring5advertismentservice.model.Category;
+import com.uniloftsky.spingframework.spring5advertismentservice.model.Status;
 import com.uniloftsky.spingframework.spring5advertismentservice.services.AdvertisementService;
 import com.uniloftsky.spingframework.spring5advertismentservice.services.CategoryService;
 import org.springframework.stereotype.Controller;
@@ -46,7 +47,7 @@ public class IndexController {
 
     @ModelAttribute("lastJobs")
     public Set<Advertisement> getLastJobs() {
-        return advertisementService.getLastAds(descComparatorById, 6);
+        return advertisementService.getLastAds(descComparatorById, 6, Status.ACTIVE);
     }
 
     @ModelAttribute("categoryMap")

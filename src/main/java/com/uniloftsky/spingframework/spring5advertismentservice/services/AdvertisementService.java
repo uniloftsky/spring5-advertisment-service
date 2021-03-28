@@ -24,7 +24,7 @@ public interface AdvertisementService extends GenericService<Advertisement, Long
 
     Page<Advertisement> findAllCheckingPage(Pageable pageable);
 
-    TreeSet<Advertisement> getLastAds(Comparator<Advertisement> comparator, int count);
+    TreeSet<Advertisement> getLastAds(Comparator<Advertisement> comparator, int count, Status status);
 
     TreeSet<Advertisement> findAllSortedBy(Comparator<Advertisement> comparator);
 
