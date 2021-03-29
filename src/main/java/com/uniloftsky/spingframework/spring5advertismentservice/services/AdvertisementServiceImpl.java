@@ -47,19 +47,19 @@ public class AdvertisementServiceImpl implements AdvertisementService {
     public Set<Advertisement> findAllActive() {
         Set<Advertisement> ads = new HashSet<>();
         advertisementRepository.findAll().iterator().forEachRemaining(ads::add);
-        return ads.stream().filter(ad -> ad.getStatus().equals(Status.ACTIVE)).collect(Collectors.toSet());
+        return ads.stream().filter(ad -> ad.getStatus().equals(Status.ACTIVE_AD)).collect(Collectors.toSet());
     }
 
     @Override
     public Set<Advertisement> findAllChecking() {
         Set<Advertisement> ads = new TreeSet<>(descComparatorById);
         advertisementRepository.findAll().iterator().forEachRemaining(ads::add);
-        return ads.stream().filter(ad -> ad.getStatus().equals(Status.CHECK)).collect(Collectors.toSet());
+        return ads.stream().filter(ad -> ad.getStatus().equals(Status.CHECK_AD)).collect(Collectors.toSet());
     }
 
     @Override
     public Page<Advertisement> findAllCheckingPage(Pageable pageable) {
-        return advertisementRepository.findAllByStatus(pageable, Status.CHECK);
+        return advertisementRepository.findAllByStatus(pageable, Status.CHECK_AD);
     }
 
     @Override
@@ -93,13 +93,13 @@ public class AdvertisementServiceImpl implements AdvertisementService {
 
     @Override
     public Advertisement submit(Advertisement advertisement) {
-        advertisement.setStatus(Status.ACTIVE);
+        advertisement.setStatus(Status.ACTIVE_AD);
         return advertisementRepository.save(advertisement);
     }
 
     @Override
     public Advertisement block(Advertisement advertisement) {
-        advertisement.setStatus(Status.BLOCK);
+        advertisement.setStatus(Status.BLOCK_AD);
         return advertisementRepository.save(advertisement);
     }
 

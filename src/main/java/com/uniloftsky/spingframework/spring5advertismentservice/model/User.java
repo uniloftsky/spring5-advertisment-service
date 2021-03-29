@@ -11,6 +11,7 @@ import java.util.Set;
 
 @Getter
 @Setter
+@Table(name = "UUser")
 @Entity
 public class User extends BaseEntity {
 
@@ -57,7 +58,7 @@ public class User extends BaseEntity {
     private String img;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)

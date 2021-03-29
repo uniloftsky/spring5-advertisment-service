@@ -108,9 +108,9 @@ public class AdminController {
     @GetMapping(value = "/admin/userDetails", params = "id")
     public String getUserPage(@RequestParam("id") Long id, Model model) {
         model.addAttribute("user", userService.findById(id));
-        model.addAttribute("activeAds", advertisementService.getStatusAdsByUser(Status.ACTIVE, userService.findById(id), comparator));
-        model.addAttribute("checkAds", advertisementService.getStatusAdsByUser(Status.CHECK, userService.findById(id), comparator));
-        model.addAttribute("blockAds", advertisementService.getStatusAdsByUser(Status.BLOCK, userService.findById(id), comparator));
+        model.addAttribute("activeAds", advertisementService.getStatusAdsByUser(Status.ACTIVE_AD, userService.findById(id), comparator));
+        model.addAttribute("checkAds", advertisementService.getStatusAdsByUser(Status.CHECK_AD, userService.findById(id), comparator));
+        model.addAttribute("blockAds", advertisementService.getStatusAdsByUser(Status.BLOCK_AD, userService.findById(id), comparator));
         return "admin/userDetails";
     }
 

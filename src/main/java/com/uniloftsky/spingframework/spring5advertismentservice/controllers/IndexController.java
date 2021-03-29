@@ -47,7 +47,7 @@ public class IndexController {
 
     @ModelAttribute("lastJobs")
     public Set<Advertisement> getLastJobs() {
-        return advertisementService.getLastAds(descComparatorById, 6, Status.ACTIVE);
+        return advertisementService.getLastAds(descComparatorById, 6, Status.ACTIVE_AD);
     }
 
     @ModelAttribute("categoryMap")

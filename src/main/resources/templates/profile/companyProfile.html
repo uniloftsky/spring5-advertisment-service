@@ -140,15 +140,15 @@
                                                     </p>
                                                 </div>
                                                 <a href="#"
-                                                   th:if="${ad.status == T(com.uniloftsky.spingframework.spring5advertismentservice.model.Status).ACTIVE && #authentication.getName() == #request.getParameter('user')}"
+                                                   th:if="${ad.status == T(com.uniloftsky.spingframework.spring5advertismentservice.model.Status).ACTIVE_AD && #authentication.getName() == #request.getParameter('user')}"
                                                    class="genric-btn success-border"
                                                    style="line-height: 20px; height: 20px;">Активно</a>
                                                 <a href="#"
-                                                   th:if="${ad.status == T(com.uniloftsky.spingframework.spring5advertismentservice.model.Status).BLOCK && #authentication.getName() == #request.getParameter('user')}"
+                                                   th:if="${ad.status == T(com.uniloftsky.spingframework.spring5advertismentservice.model.Status).BLOCK_AD && #authentication.getName() == #request.getParameter('user')}"
                                                    class="genric-btn danger-border"
                                                    style="line-height: 20px; height: 20px;">Заблоковано</a>
                                                 <a href="#"
-                                                   th:if="${ad.status == T(com.uniloftsky.spingframework.spring5advertismentservice.model.Status).CHECK && #authentication.getName() == #request.getParameter('user')}"
+                                                   th:if="${ad.status == T(com.uniloftsky.spingframework.spring5advertismentservice.model.Status).CHECK_AD && #authentication.getName() == #request.getParameter('user')}"
                                                    class="genric-btn warning-border"
                                                    style="line-height: 20px; height: 20px;">Перевіряється</a>
                                                 <a href="" th:href="@{/deleteAd(id = ${ad.id})}"

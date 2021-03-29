@@ -61,6 +61,7 @@ public class UserController {
     @PostMapping("/editProfile")
     public String editProfileFormProcess(@Valid @ModelAttribute("user") User user, BindingResult result, @RequestParam("profileImage") MultipartFile file, Model model) throws IOException {
         if (result.hasErrors()) {
+            System.out.println(result.getAllErrors());
             return "profile/editProfile";
         }
         userService.save(user, file);

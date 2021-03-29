@@ -1,5 +1,5 @@
 package com.uniloftsky.spingframework.spring5advertismentservice.model;
 
 public enum Status {
-    ACTIVE, CHECK, BLOCK
+    ACTIVE_AD, CHECK_AD, BLOCK_AD
 }

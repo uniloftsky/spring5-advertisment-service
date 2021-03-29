@@ -49,7 +49,7 @@ public class CategoryServiceImpl implements CategoryService {
 
         categoryRepository.findAll().iterator().forEachRemaining(categories::add);
         for (Category category : categories.stream().limit(8).collect(toCollection(() -> new TreeSet<>(comparator)))) {
-            categoryIntegerMap.put(category, category.getAds().stream().filter(ad -> ad.getStatus().equals(Status.ACTIVE)).collect(toSet()).size());
+            categoryIntegerMap.put(category, category.getAds().stream().filter(ad -> ad.getStatus().equals(Status.ACTIVE_AD)).collect(toSet()).size());
         }
         return categoryIntegerMap;
     }

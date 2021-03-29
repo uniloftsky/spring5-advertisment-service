@@ -63,7 +63,7 @@ public class AdsController {
 
     @GetMapping(value = "/ad", params = "id")
     public String getAdPage(@RequestParam("id") Long id, Model model) {
-        if (advertisementService.findById(id).getStatus().equals(Status.ACTIVE)) {
+        if (advertisementService.findById(id).getStatus().equals(Status.ACTIVE_AD)) {
             model.addAttribute("ad", advertisementService.findById(id));
             return "item";
         }

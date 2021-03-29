@@ -90,7 +90,7 @@ public class AdvertisementCriteriaRepository {
                 }
             }
         }
-        predicates.add(criteriaBuilder.equal(advertisementRoot.get("status"), Status.ACTIVE));
+        predicates.add(criteriaBuilder.equal(advertisementRoot.get("status"), Status.ACTIVE_AD));
         return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
     }
 
