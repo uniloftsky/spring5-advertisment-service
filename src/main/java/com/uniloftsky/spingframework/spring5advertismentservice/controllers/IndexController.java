@@ -66,4 +66,9 @@ public class IndexController {
         return "error/403error";
     }
 
+    @GetMapping("/help")
+    public String getHelpPage() {
+        return "faq";
+    }
+
 }
